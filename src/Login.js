@@ -1,13 +1,13 @@
-//Import Multi theme providor google material ui 
-import MultiThemeProvider from 'material-ui/styles/MultiThemeProvider';
+
 //Import raise button from google material ui 
-import RaiseButton from 'material-ui/AppBar';
+import RaiseButton from '@material-ui/core/AppBar';
 //Import AppBar from material ui 
-import AppBar from 'material-ui/AppBar';
+import AppBar from '@material-ui/core/AppBar';
 // Import text field from material Ui
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 // Import Linear Progression bar from material ui
 import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 // Create login component
 class Login extends Component{
