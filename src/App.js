@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
 import './App.css';
+import Loginscreen from './Loginscreen'
+
+
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <form>
-           <label>
-              Email:
-              <input type="text" name="name" />
-           </label>
-           <label>
-              Password:
-              <input type="text" name="Password"/>
-           </label>
-           <input type="submit" value="Submit" />
-        </form>
-      <input type="submit" value="Register"/>
-      </div>
-    );
-  }
-}
+	constructor(props){
+		super(props);
+			this.state={
+				loginPage:[]
+			}
+		}
+    ComponentWillMount(){
+    	var loginPage =[];
+    	loginPage.push(<Loginscreen parentContext={this}/>);
+    	this.setState({
+    		loginPage: loginPage
+    	})
+    }
 
+    render() {
+        return (
+        <div className="App">
+           {this.state.loginPage}
+           {this.state.uploadScreen}
+        </div>
+        );
+    }
+}
 
 
 export default App;
