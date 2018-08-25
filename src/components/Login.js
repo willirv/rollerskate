@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import styles from '../styles/login.css';
+import {Link} from "react-router";
+
+
+
 
 
 export default class Login extends React.Component{
@@ -7,7 +11,7 @@ export default class Login extends React.Component{
 		return(
          <div id="login-form">
 			<h4>Login</h4>
-
+      
                <form>
                <div id="Email-bar">
                 <input type="text" name="email" placeholder="Email" />
@@ -20,7 +24,7 @@ export default class Login extends React.Component{
               </div>
               <div id="link-bar">
                 <a href="">Forgot your password?</a>
-                <a href="">Don't have an account? Get started</a>
+                <a href ="">Don't have an account? Get started</a>
               </div>
                </form>
         </div>
