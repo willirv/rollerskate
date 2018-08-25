@@ -1,33 +1,18 @@
 import React, { Component } from 'react';
-import './App.css';
-import Loginscreen from './Loginscreen'
+import navbar from './global/navbar.js';
+import Login from './components/Login.js';
 
 
 
-class App extends Component {
-	constructor(props){
-		super(props);
-			this.state={
-				loginPage:[]
-			}
-		}
-    ComponentWillMount(){
-    	var loginPage =[];
-    	loginPage.push(<Loginscreen parentContext={this}/>);
-    	this.setState({
-    		loginPage: loginPage
-    	})
-    }
 
-    render() {
-        return (
-        <div className="App">
-           {this.state.loginPage}
-           {this.state.uploadScreen}
-        </div>
-        );
-    }
+export default class App extends React.Component{
+	render(){
+		return(
+			<div>
+			   <navbar/>
+		       <Login/>
+		    </div>
+			);
+	}
 }
 
-
-export default App;
