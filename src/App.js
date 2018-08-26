@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import router from './router.js';
+import Router from "./router.js";
 
 
 
@@ -7,9 +7,7 @@ import router from './router.js';
 export default class App extends React.Component{
 	render(){
 		return(
-			<div>
-			  <router/>
-		    </div>
+             <Router/>
 			);
 	}
 }

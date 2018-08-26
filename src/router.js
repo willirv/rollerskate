@@ -1,16 +1,25 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Component } from 'react';
+// Import Render from react dom
+import {render} from "react-dom";
+// Import Router, Route, BrowserHistory from react router
+import {Router, Route, browserHistory } from "react-router"; 
 
-//Import Login / Register components 
-import Login from './components/Login.js';
-import Register from './components/Register.js';
+//********************** Import Login and Register Components
+import home from "./components/welcome";
+import register from "./components/Register";
+import login from "./components/Login";
 
 
-const Main = () => (
-	  <main>
-<Switch>
-  <Route exact path='/' component={Login}/>;
-  <Route path='/register' component={Register}/>
-</Switch>
-  </main>
-  )
+//********************** Set Route paths for components and render Home component /
+// Set display as /login and /register etc. in renderer 
+export default class App extends React.Component{
+	render(){
+		return(
+			  <Router history={browserHistory}>
+			    <Route path={"/"} component={home} />
+			    <Route path={"login"} component={login} />
+			    <Route path={"register"} component={register} />
+			  </Router>
+			);
+	}
+}
