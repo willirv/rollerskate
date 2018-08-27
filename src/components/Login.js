@@ -32,10 +32,29 @@ export default class Login extends React.Component{
   }
 
 
+
+
 // Create a handle event preventing default being submitted
   handleSubmit = event => {
     event.preventDefault();
-  }
+    var password = document.getElementById("password").value;
+    var email = document.getElementById("email").value;
+    console.log(password);
+    console.log(email);
+
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+
+  // ...
+});
+}
+
+
+
+
+
 
 	render(){
 		return(
@@ -46,6 +65,7 @@ export default class Login extends React.Component{
           <FormGroup controlId="email" bsSize="large">
             <ControlLabel>Email</ControlLabel>
             <FormControl
+              id="email"
               autoFocus
               type="email"
               value={this.state.email}
@@ -55,6 +75,7 @@ export default class Login extends React.Component{
           <FormGroup controlId="password" bsSize="large">
             <ControlLabel>Password</ControlLabel>
             <FormControl
+              id="password"
               value={this.state.password}
               onChange={this.handleChange}
               type="password"
