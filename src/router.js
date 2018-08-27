@@ -8,6 +8,7 @@ import {Router, Route, browserHistory } from "react-router";
 import home from "./components/welcome";
 import register from "./components/Register";
 import login from "./components/Login";
+import fgpassword from "./components/forgotpassword.js"
 
 
 //********************** Set Route paths for components and render Home component /
@@ -19,6 +20,7 @@ export default class App extends React.Component{
 			    <Route path={"/"} component={home} />
 			    <Route path={"login"} component={login} />
 			    <Route path={"register"} component={register} />
+			    <Route path={"forgotpassword"} component={fgpassword} />
 			  </Router>
 			);
 	}

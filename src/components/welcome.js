@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from "react-router"; 
+import { Link, browserHistory } from "react-router"; 
+import styles from '../styles/welcome.css';
 
-export default class App extends React.Component{
+
+export default class Welcome extends React.Component{
 	render(){
 		return(
-             <div>
-             <h3>Welcome</h3>
-             <Link to={"login"}>Test</Link>
+             <div id="welcome">
+             <h3>Rollerskate</h3>
+               <p>Test</p>
+             <button type="submit"><Link to={"login"}>Continue</Link></button>
              </div>
 			);
 	}
