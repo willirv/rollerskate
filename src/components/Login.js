@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import firebase from "firebase";
 import styles from '../styles/login.css';
 import { Link, Router, Route, browserHistory } from "react-router"; 
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";

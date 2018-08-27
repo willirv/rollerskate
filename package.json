@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    " "module": "0.0.x" ,
     "@material-ui/core": "^1.5.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",

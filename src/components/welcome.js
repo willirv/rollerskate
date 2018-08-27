@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import firebase from "firebase";
 import { Link, browserHistory } from "react-router"; 
 import styles from '../styles/welcome.css';
+
 
 
 export default class Welcome extends React.Component{

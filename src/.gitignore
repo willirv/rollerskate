@@ -1,7 +1,7 @@
 // .gitignore
 
 # api keys
-.env   
+env.js
 
 # dependencies
-/node_modules
+./node_modules
