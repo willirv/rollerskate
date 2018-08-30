@@ -10,6 +10,8 @@ var fconfig = {
     messagingSenderId: FIREBASE_DATA.MESSAGINGSENDERID
 }
 
+
+
 firebase.initializeApp(fconfig);
 
 export default firebase
