@@ -11,6 +11,7 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 
 
+
 //*********************************** Form and event attributs  ***********************************
 
 export default class Login extends React.Component{
@@ -55,27 +56,34 @@ export default class Login extends React.Component{
     var credential = firebase.auth.EmailAuthProvider.credential(email, password);
 //Log variable for debug 
     console.log(credential);
-  
+
+//*********************************** If email and password = true ***********************************
 
 //Call firebase auth() function with the inputted email and password
 firebase.auth().signInWithEmailAndPassword( email, password)
 //If the email and password match firebase database call the firebase user function
    .then(function(User) {
+
+       var user = firebase.auth().currentUser;
+       console.log(user);
        //Success - the users email and password is on database
        //Console log for debug
-       console.log(firebase.auth().currentUser);
        console.log("yay you're a user");
-       window.location = "location";
+       window.location = "dashboard";
        //Set the window location to the ./dashboard element
 
 
    })
+//*********************************** If email and password = false ***********************************
 //If the email and password DO NOT match firebase data run the catch function
   .catch(function(error) {
        //Error Handling - The users password does not match firebase
        //Console log for debug 
        console.log(firebase.auth().currentUser);
-       console.log("User not found")
+       //debugging - alert 
+       alert("you are not a user");
+       //debugging - console .log
+       console.log("User not found");
 
   
   });
@@ -86,32 +94,27 @@ firebase.auth().signInWithEmailAndPassword( email, password)
 
 
 
-
-
-
-
-
-
 	render(){
 		return(
          <div className="login-form">
+            <Link to={"/"}>HOME</Link>
 			<h4>Login</h4>
       
            <form onSubmit={this.handleSubmit}>
           <FormGroup controlId="email" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
             <FormControl
               id="email"
               autoFocus
               type="email"
+              placeholder="Enter your email"
               value={this.state.email}
               onChange={this.handleChange}
             />
           </FormGroup>
           <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
             <FormControl
               id="password"
+              placeholder="Enter your password"
               value={this.state.password}
               onChange={this.handleChange}
               type="password"
@@ -126,8 +129,14 @@ firebase.auth().signInWithEmailAndPassword( email, password)
             Login
           </Button>
         </form>
+           <div id="link-bar">
+             <div class="register-button">
                <Link to={"register"}>Register</Link>
-               <Link to={"forgotpassword"}>Forgot me password?</Link>
+            </div>
+            <div class="forgotpassword-button">
+               <Link to={"forgotpassword"}>Forgot your password?</Link>
+            </div>
+           </div>
         </div>
 			);
 	}

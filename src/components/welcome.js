@@ -10,7 +10,7 @@ export default class Welcome extends React.Component{
 		return(
              <div id="welcome">
              <h3>Rollerskate</h3>
-               <p>Test</p>
+               <p>Are you ready to meet people?</p>
              <button type="submit"><Link to={"login"}>Continue</Link></button>
              </div>
 			);

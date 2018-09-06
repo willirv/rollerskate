@@ -7,6 +7,7 @@ import { Link, Router, Route, browserHistory } from "react-router";
 //Import form elements from react-bootstrap
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
+
 export default class Dashboard extends React.Component{
 	render(){
 		return(
