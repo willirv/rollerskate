@@ -1,5 +1,11 @@
-.login-form {
+#login {
 	text-align: center;
-	padding-top: 200px;
 }
 
+#login-home{
+  text-align: center;
+}
+
+#login-form{
+	padding-top: 200px;
+}

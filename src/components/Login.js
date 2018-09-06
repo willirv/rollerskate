@@ -96,8 +96,11 @@ firebase.auth().signInWithEmailAndPassword( email, password)
 
 	render(){
 		return(
-         <div className="login-form">
+         <div id="login">
+           <div id="login-home">
             <Link to={"/"}>HOME</Link>
+           </div>
+      <div id="login-form">
 			<h4>Login</h4>
       
            <form onSubmit={this.handleSubmit}>
@@ -135,6 +138,7 @@ firebase.auth().signInWithEmailAndPassword( email, password)
             </div>
             <div class="forgotpassword-button">
                <Link to={"forgotpassword"}>Forgot your password?</Link>
+            </div>
             </div>
            </div>
         </div>
