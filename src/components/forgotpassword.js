@@ -16,7 +16,7 @@ export default class Login extends React.Component{
               <Link to={"/login"}>HOME</Link>
             </div>
           <div id="password-content">
-			      <h4>Insert login form</h4>
+			      <h4>Insert forgot password form</h4>
 			</div>
         </div>
 			);

@@ -2,6 +2,24 @@
 	text-align: center;
 }
 
+
+#login input{
+	width: 200px;
+	height: 4em;
+	border-radius: 20px;
+	text-decoration: none;
+	border: 1px solid black;
+}
+
+#email{
+	margin-bottom: 20px;
+}
+
+#password{
+	margin-bottom:5px;
+}
+
+
 #login-home{
   text-align: center;
 }
@@ -9,3 +27,9 @@
 #login-form{
 	padding-top: 200px;
 }
+
+#login-submit{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+

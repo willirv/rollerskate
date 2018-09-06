@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import firebase from "firebase";
 //Import login stylesheet 
 import styles from '../styles/login.css';
+
+import global from '../styles/styles.css';
 //Import react-router elements 
 import { Link, Router, Route, browserHistory } from "react-router"; 
 //Import form elements from react-bootstrap
@@ -125,6 +127,7 @@ firebase.auth().signInWithEmailAndPassword( email, password)
             />
           </FormGroup>
           <Button
+            id="login-submit"
             block
             bsSize="large"
             disabled={!this.validateForm()}
