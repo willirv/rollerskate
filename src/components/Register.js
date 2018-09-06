@@ -34,7 +34,8 @@ export default class Register extends React.Component{
     return (
       <div id="register-content">
         <div id="register-home">
-            <Link to={"/"}>HOME</Link>
+            <Link to={"/"}> &larr; back </Link>
+            <Link to={"/login"}>HOME</Link>
         </div>
       <form onSubmit={this.handleSubmit}>
         <label>

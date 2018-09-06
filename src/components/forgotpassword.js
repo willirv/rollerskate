@@ -12,9 +12,12 @@ export default class Login extends React.Component{
 		return(
          <div id="password-forget">
             <div id="password-home">
-              <Link to={"/"}>HOME</Link>
+              <Link to={"/login"}> &larr; back </Link>
+              <Link to={"/login"}>HOME</Link>
             </div>
-			      <h4> Fook! forgot me password </h4>
+          <div id="password-content">
+			      <h4>Insert login form</h4>
+			</div>
         </div>
 			);
 	}
