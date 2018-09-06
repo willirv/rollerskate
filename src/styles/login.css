@@ -8,7 +8,16 @@
 	height: 4em;
 	border-radius: 20px;
 	text-decoration: none;
-	border: 1px solid black;
+	border: none;
+	text-align: center;
+}
+
+#login button{
+	width: 100px;
+	height: 4em;
+	border-radius: 20px;
+	text-align: none;
+	border: none;
 }
 
 #email{

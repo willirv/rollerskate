@@ -2,3 +2,11 @@
 	text-align: center;
 	padding-top: 200px;
 }
+
+#welcome button{
+    width: 100px;
+	height: 4em;
+	border-radius: 20px;
+	text-align: none;
+	border: none;
+}
