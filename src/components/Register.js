@@ -70,7 +70,7 @@ export default class Register extends React.Component{
 firebase.auth().createUserWithEmailAndPassword(email, password)
 
 .then(function(newUser){
-  window.location = "dashboard";
+  window.location = "upload";
 })
 
 
