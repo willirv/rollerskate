@@ -78,6 +78,10 @@ firebase.auth().createUserWithEmailAndPassword(email, password)
   // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
+  // error debug
+  console.log(errorCode);
+   // error debug
+  console.log(errorMessage);
   // ...
 });
 
