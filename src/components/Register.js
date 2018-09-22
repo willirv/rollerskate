@@ -67,7 +67,14 @@ export default class Register extends React.Component{
 //*********************************** Register new user ***********************************
 
 //Call firebase auth() function to create new user with the inputted email and password
-firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+firebase.auth().createUserWithEmailAndPassword(email, password)
+
+.then(function(newUser){
+  window.location = "dashboard";
+})
+
+
+.catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
@@ -75,7 +82,6 @@ firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(e
 });
 
 }
-
 
 
   render() {
