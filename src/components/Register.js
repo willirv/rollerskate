@@ -148,7 +148,7 @@ firebase.auth().createUserWithEmailAndPassword(email, password)
             disabled={!this.validateForm()}
             type="submit"
           >
-            Login
+            Register
           </Button>
         </form>
            <div id="link-bar">
