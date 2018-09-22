@@ -14,8 +14,10 @@ export default class Register extends React.Component{
 
   constructor(props){
     super(props);
-// Set the state of the form as email and password --- will be the element we push to firebase database 
+// Set the state of the form as name, age, email and password  
      this.state = {
+      name:"",
+      age:"",
       email:"",
       password:""
      };
@@ -26,7 +28,7 @@ export default class Register extends React.Component{
      return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
-// Set an event for when the input form is changed
+// Set an event for when the input form is changed and target the id of selected form
   handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value
@@ -39,51 +41,38 @@ export default class Register extends React.Component{
   handleSubmit = event => {
 
 
-//Prevent the user submiting the form when there is no password inputted
+//Prevent the user submiting the form when there is no password inputted with event
     event.preventDefault();
+
+//*********************************** Declare input variables ***********************************
 //Declare the password variable 
     var password = document.getElementById("password").value;
 //Declare the email variable 
     var email = document.getElementById("email").value;
+// Declare the name variable
+    var name = document.getElementById("name").value;
+// Declare the age variable
+    var age = document.getElementById("age").value;
+
 //Console.log the password variable for debug 
     console.log(password);
 //Console.log the email variable for debug 
     console.log(email);
-//Set the credential variable - To find whether the user is auth() or not
-    var credential = firebase.auth.EmailAuthProvider.credential(email, password);
-//Log variable for debug 
-    console.log(credential);
-
-//*********************************** If email and password = true ***********************************
-
-//Call firebase auth() function with the inputted email and password
-firebase.auth().signInWithEmailAndPassword( email, password)
-//If the email and password match firebase database call the firebase user function
-   .then(function(User) {
-
-       var user = firebase.auth().currentUser;
-       console.log(user);
-       //Success - the users email and password is on database
-       //Console log for debug
-       console.log("yay you're a user");
-       window.location = "dashboard";
-       //Set the window location to the ./dashboard element
+//Console.log the age of user for debug
+    console.log(age);
+//Console.log the name of user for debug
+    console.log(name);
 
 
-   })
-//*********************************** If email and password = false ***********************************
-//If the email and password DO NOT match firebase data run the catch function
-  .catch(function(error) {
-       //Error Handling - The users password does not match firebase
-       //Console log for debug 
-       console.log(firebase.auth().currentUser);
-       //debugging - alert 
-       alert("you are not a user");
-       //debugging - console .log
-       console.log("User not found");
+//*********************************** Register new user ***********************************
 
-  
-  });
+//Call firebase auth() function to create new user with the inputted email and password
+firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ...
+});
 
 }
 
@@ -96,7 +85,7 @@ firebase.auth().signInWithEmailAndPassword( email, password)
            <Link to={"/login"}> &larr; back </Link>
             <Link to={"/login"}>HOME</Link>
            </div>
-      <div id="login-form">
+      <div id="register-form">
       <h4>Register</h4>
 
 /* Enter name */
