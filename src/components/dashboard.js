@@ -9,9 +9,20 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 
 export default class Dashboard extends React.Component{
+
+checkUser(){
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+  } else {
+    window.location = "login";
+  }
+});
+}
+
 	render(){
 		return(
-			<div>
+			<div onload="checkUser()">
 			   <h4> Dashboard </h4>
       </div>
 			);

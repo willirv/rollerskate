@@ -23,6 +23,8 @@ export default class Register extends React.Component{
      };
   }
 
+
+
 // Create a valid form state and define the email and password elements 
   validateForm(){
      return this.state.email.length > 0 && this.state.password.length > 0;
@@ -34,6 +36,8 @@ export default class Register extends React.Component{
       [event.target.id]: event.target.value
     });
   }
+
+
 
 
 //*********************************** Submit button ***********************************
@@ -53,6 +57,9 @@ export default class Register extends React.Component{
     var name = document.getElementById("name").value;
 // Declare the age variable
     var age = document.getElementById("age").value;
+// Declare the gender variable 
+    var gender = document.getElementById("gender").value;
+
 
 //Console.log the password variable for debug 
     console.log(password);
@@ -62,17 +69,48 @@ export default class Register extends React.Component{
     console.log(age);
 //Console.log the name of user for debug
     console.log(name);
+//Console.log gender
+    console.log(gender);
+
 
 
 //*********************************** Register new user ***********************************
 
-//Call firebase auth() function to create new user with the inputted email and password
+//Call firebase auth() function to create new user auth account with the inputted email and password
 firebase.auth().createUserWithEmailAndPassword(email, password)
 
-.then(function(newUser){
-  window.location = "upload";
+//*********************************** If a new user ***********************************
+.then(function(user){
+
+//*********************************** Database ***********************************
+// create a variable for firebase firestore database 
+var db = firebase.firestore();
+
+// Set the timestamp to true - to prevent console errors 
+db.settings({
+  timestampsInSnapshots: true
+});
+
+// Add a new entry to the users database collection - with user information
+  db.collection("users").add({
+    name: name,
+    age: age,
+    gender: gender,
+    email: email,
+    bio: null
+})
+// For debug - console log wether the database entry was success full or not
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+    window.location = "dashboard";
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+
 })
 
+//*********************************** If not a new user ***********************************
 
 .catch(function(error) {
   // Handle Errors here.
@@ -84,6 +122,7 @@ firebase.auth().createUserWithEmailAndPassword(email, password)
   console.log(errorMessage);
   // ...
 });
+
 
 }
 
@@ -100,6 +139,8 @@ firebase.auth().createUserWithEmailAndPassword(email, password)
 
 /* Enter name */
       <form onSubmit={this.handleSubmit}>
+
+
           <FormGroup controlId="name" bsSize="large">
             <FormControl
               id="name"
@@ -122,6 +163,19 @@ firebase.auth().createUserWithEmailAndPassword(email, password)
               onChange={this.handleChange}
             />
           </FormGroup>
+
+/* Get Gender */
+           <FormGroup controlId="gender" bsSize="large">
+            <FormControl
+              id="gender"
+              autoFocus
+              type="gender"
+              placeholder="Enter your gender"
+              value={this.state.gender}
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+
 
 /* Enter email */      
           <FormGroup controlId="email" bsSize="large">

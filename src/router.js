@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // Import Render from react dom
 import {render} from "react-dom";
+
 // Import Router, Route, BrowserHistory from react router
 import {Router, Route, browserHistory } from "react-router"; 
 
@@ -10,7 +11,8 @@ import register from "./components/Register";
 import login from "./components/Login";
 import fgpassword from "./components/forgotpassword.js"
 import dashboard from "./components/dashboard";
-import upload from "./components/upload.js";
+import upload from "./components/upload";
+
 
 
 //********************** Set Route paths for components and render Home component /
