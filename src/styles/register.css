@@ -1,8 +1,16 @@
+#register img{
+	width: 250px;
+	height: 250px;
+	border-radius: 400px;
+}
+
+
 #register-home{
 	text-align: center;
 }
 
 #register-form{
 	text-align: center;
-	padding-top: 200px;
+	padding-top: 0;
 }
+
