@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 //Import firebase from firebase 
 import firebase from "firebase";
+//Import upload stylesheet 
+import styles from '../styles/upload.css';
 //Import react-router elements 
 import { Link, Router, Route, browserHistory } from "react-router"; 
 //Import form elements from react-bootstrap
@@ -90,7 +92,7 @@ return(
   <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple/>
   
   <div className="preview">
-    <p>No files currently selected for upload</p>
+    <p>Upload a profile picture to get started!</p>
   </div>
 
 
