@@ -151,35 +151,37 @@ function validFileType(file) {
 
 
 
-
-
-
-
-
-
-
-
-
-
 //*********************************** Register new user ***********************************
 
 //Call firebase auth() function to create new user auth account with the inputted email and password
 firebase.auth().createUserWithEmailAndPassword(email, password)
 
+
 //*********************************** If a new user ***********************************
 .then(function(user){
+
+
 
 
 //*********************************** Database ***********************************
   var file = document.getElementById("image_uploads").file;
   var blob = new Blob([file], {type: "images/jpeg"});
-  var storageUrl = "/Images";
-  var storageRef = firebase.storage().ref(storageUrl);
+  var storageUrl = "/Images/";
+  var storageRef = firebase.storage().ref(storageUrl + name);
 
-  storageRef.put(blob).then(function(snapshot) {
+  storageRef.put(blob)
+
+  .then(function(snapshot) {
   console.log('Uploaded a blob or file!');
-});
+}, 8000);
 
+// It prints url but need to create global variable
+  storageRef.getDownloadURL()
+
+  .then(function(url){
+  
+  var profileImage = url;
+  console.log(profileImage);
 
 
 
@@ -193,6 +195,7 @@ db.settings({
 
 // Add a new entry to the users database collection - with user information
   db.collection("users").add({
+    pic: profileImage,
     name: name,
     age: age,
     gender: gender,
@@ -223,7 +226,7 @@ db.settings({
   // ...
 });
 
-
+})
 }
 
 
