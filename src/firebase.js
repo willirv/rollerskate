@@ -15,6 +15,8 @@ var fconfig = {
 // Initialise config 
 firebase.initializeApp(fconfig);
 
+var storage = firebase.storage();
+
 
 // Export defult firebase 
 export default firebase

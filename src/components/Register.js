@@ -12,119 +12,6 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 export default class Register extends React.Component{
 
 
-  constructor(props){
-    super(props);
-// Set the state of the form as name, age, email and password  
-     this.state = {
-      name:"",
-      age:"",
-      email:"",
-      password:""
-     };
-  }
-
-
-
-// Create a valid form state and define the email and password elements 
-  validateForm(){
-     return this.state.email.length > 0 && this.state.password.length > 0;
-  }
-
-// Set an event for when the input form is changed and target the id of selected form
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  }
-
-
-
-
-//*********************************** Submit button ***********************************
-//Create a handle for button/ submit 
-  handleSubmit = event => {
-
-
-//Prevent the user submiting the form when there is no password inputted with event
-    event.preventDefault();
-
-//*********************************** Declare input variables ***********************************
-//Declare the password variable 
-    var password = document.getElementById("password").value;
-//Declare the email variable 
-    var email = document.getElementById("email").value;
-// Declare the name variable
-    var name = document.getElementById("name").value;
-// Declare the age variable
-    var age = document.getElementById("age").value;
-// Declare the gender variable 
-    var gender = document.getElementById("gender").value;
-
-
-//Console.log the password variable for debug 
-    console.log(password);
-//Console.log the email variable for debug 
-    console.log(email);
-//Console.log the age of user for debug
-    console.log(age);
-//Console.log the name of user for debug
-    console.log(name);
-//Console.log gender
-    console.log(gender);
-
-
-
-//*********************************** Register new user ***********************************
-
-//Call firebase auth() function to create new user auth account with the inputted email and password
-firebase.auth().createUserWithEmailAndPassword(email, password)
-
-//*********************************** If a new user ***********************************
-.then(function(user){
-
-//*********************************** Database ***********************************
-// create a variable for firebase firestore database 
-var db = firebase.firestore();
-
-// Set the timestamp to true - to prevent console errors 
-db.settings({
-  timestampsInSnapshots: true
-});
-
-// Add a new entry to the users database collection - with user information
-  db.collection("users").add({
-    name: name,
-    age: age,
-    gender: gender,
-    email: email,
-    bio: null
-})
-// For debug - console log wether the database entry was success full or not
-.then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
-    window.location = "dashboard";
-})
-.catch(function(error) {
-    console.error("Error adding document: ", error);
-});
-
-})
-
-//*********************************** If not a new user ***********************************
-
-.catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // error debug
-  console.log(errorCode);
-   // error debug
-  console.log(errorMessage);
-  // ...
-});
-
-
-}
 
 // On component mount
 componentDidMount() {
@@ -139,7 +26,7 @@ componentDidMount() {
    input.addEventListener('change', updateImageDisplay);
 
 // Create a function for the update image display -- For previewing the first child of uploaded image =
-   function updateImageDisplay() {
+  function updateImageDisplay() {
   while(preview.firstChild) {
     preview.removeChild(preview.firstChild);
   }
@@ -201,6 +88,147 @@ function validFileType(file) {
 
 
 
+  constructor(props){
+    super(props);
+// Set the state of the form as name, age, email and password  
+     this.state = {
+      name:"",
+      age:"",
+      email:"",
+      password:""
+     };
+  }
+
+
+
+// Create a valid form state and define the email and password elements 
+  validateForm(){
+     return this.state.email.length > 0 && this.state.password.length > 0;
+  }
+
+// Set an event for when the input form is changed and target the id of selected form
+  handleChange = event => {
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+  }
+
+
+
+
+//*********************************** Submit button ***********************************
+//Create a handle for button/ submit 
+  handleSubmit = event => {
+
+
+//Prevent the user submiting the form when there is no password inputted with event
+    event.preventDefault();
+
+//*********************************** Declare input variables ***********************************
+//Declare the password variable 
+    var password = document.getElementById("password").value;
+//Declare the email variable 
+    var email = document.getElementById("email").value;
+// Declare the name variable
+    var name = document.getElementById("name").value;
+// Declare the age variable
+    var age = document.getElementById("age").value;
+// Declare the gender variable 
+    var gender = document.getElementById("gender").value;
+
+
+
+//Console.log the password variable for debug 
+    console.log(password);
+//Console.log the email variable for debug 
+    console.log(email);
+//Console.log the age of user for debug
+    console.log(age);
+//Console.log the name of user for debug
+    console.log(name);
+//Console.log gender
+    console.log(gender);
+
+
+
+
+
+
+
+
+
+
+
+
+
+//*********************************** Register new user ***********************************
+
+//Call firebase auth() function to create new user auth account with the inputted email and password
+firebase.auth().createUserWithEmailAndPassword(email, password)
+
+//*********************************** If a new user ***********************************
+.then(function(user){
+
+
+//*********************************** Database ***********************************
+  var file = document.getElementById("image_uploads").file;
+  var blob = new Blob([file], {type: "images/jpeg"});
+  var storageUrl = "/Images";
+  var storageRef = firebase.storage().ref(storageUrl);
+
+  storageRef.put(blob).then(function(snapshot) {
+  console.log('Uploaded a blob or file!');
+});
+
+
+
+
+// create a variable for firebase firestore database 
+var db = firebase.firestore();
+
+// Set the timestamp to true - to prevent console errors 
+db.settings({
+  timestampsInSnapshots: true
+});
+
+// Add a new entry to the users database collection - with user information
+  db.collection("users").add({
+    name: name,
+    age: age,
+    gender: gender,
+    email: email,
+    bio: null
+})
+// For debug - console log wether the database entry was success full or not
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+   // window.location = "dashboard";
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+
+})
+
+//*********************************** If not a new user ***********************************
+
+.catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // error debug
+  console.log(errorCode);
+   // error debug
+  console.log(errorMessage);
+  // ...
+});
+
+
+}
+
+
+
+
   render() {
       return(
          <div id="register">
@@ -255,7 +283,6 @@ function validFileType(file) {
             <FormControl
               id="gender"
               autoFocus
-              type="gender"
               placeholder="Enter your gender"
               value={this.state.gender}
               onChange={this.handleChange}
