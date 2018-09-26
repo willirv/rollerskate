@@ -173,7 +173,7 @@ firebase.auth().createUserWithEmailAndPassword(email, password)
 
   .then(function(snapshot) {
   console.log('Uploaded a blob or file!');
-}, 8000);
+}, 9000);
 
 // It prints url but need to create global variable
   storageRef.getDownloadURL()
