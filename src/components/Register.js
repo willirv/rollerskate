@@ -160,29 +160,38 @@ firebase.auth().createUserWithEmailAndPassword(email, password)
 //*********************************** If a new user ***********************************
 .then(function(user){
 
+if(firebase.auth().currentUser !== null){
+  
+console.log("user id" + firebase.auth().currentUser.uid)
 
+ var uid = firebase.auth().currentUser.uid;
 
 
 //*********************************** Database ***********************************
+//Declare the file variable as "image/ uploads"
   var file = document.getElementById("image_uploads").file;
+//Create a new blob file .jpeg for upload to firebase
   var blob = new Blob([file], {type: "images/jpeg"});
+//Create a path to the image database with storage url variable
   var storageUrl = "/Images/";
+//Declare the storageRef variable - with the storage url and the name of new user
   var storageRef = firebase.storage().ref(storageUrl + name);
-
+//Push the image blob to firebase database 
   storageRef.put(blob)
-
+//When pushed run the snapshot function // console.log for debug 
+//Function runs for 9 seconds enough for file upload 
   .then(function(snapshot) {
   console.log('Uploaded a blob or file!');
-}, 9000);
+}, 20000);
 
-// It prints url but need to create global variable
+//Query the database of the uploaded image and get the URL of the file
   storageRef.getDownloadURL()
 
   .then(function(url){
-  
+//Declare the profile image variable as the url to the image 
   var profileImage = url;
+//console.log for debug 
   console.log(profileImage);
-
 
 
 // create a variable for firebase firestore database 
@@ -195,6 +204,7 @@ db.settings({
 
 // Add a new entry to the users database collection - with user information
   db.collection("users").add({
+    uid: uid,
     pic: profileImage,
     name: name,
     age: age,
@@ -225,9 +235,10 @@ db.settings({
   console.log(errorMessage);
   // ...
 });
-
+}
 })
 }
+
 
 
 
