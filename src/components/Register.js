@@ -159,15 +159,13 @@ firebase.auth().createUserWithEmailAndPassword(email, password)
 
 //*********************************** If a new user ***********************************
 .then(function(user){
-
+//Check that the new user is auth()
 if(firebase.auth().currentUser !== null){
-  
+//For debug console log the user id of the new user
 console.log("user id" + firebase.auth().currentUser.uid)
+//Declare a variable for the new users 
+var uid = firebase.auth().currentUser.uid;
 
- var uid = firebase.auth().currentUser.uid;
-
-
-//*********************************** Database ***********************************
 //Declare the file variable as "image/ uploads"
   var file = document.getElementById("image_uploads").file;
 //Create a new blob file .jpeg for upload to firebase
@@ -178,63 +176,63 @@ console.log("user id" + firebase.auth().currentUser.uid)
   var storageRef = firebase.storage().ref(storageUrl + name);
 //Push the image blob to firebase database 
   storageRef.put(blob)
+
 //When pushed run the snapshot function // console.log for debug 
 //Function runs for 9 seconds enough for file upload 
   .then(function(snapshot) {
+//Consolelog that the file has uploaded for debug
   console.log('Uploaded a blob or file!');
-}, 20000);
-
-//Query the database of the uploaded image and get the URL of the file
-  storageRef.getDownloadURL()
-
-  .then(function(url){
-//Declare the profile image variable as the url to the image 
-  var profileImage = url;
-//console.log for debug 
-  console.log(profileImage);
+// Get the url of of the file uploaded and then run the download url event
+  storageRef.getDownloadURL().then(downloadURL => {
+//Declare the image Url 
+    imageURL = downloadURL;
+//Log the Url for debug
+    console.log(imageURL);
+//Declare the image url variable
+    var imageURL;
 
 
+
+
+//*********************************** Database ***********************************
 // create a variable for firebase firestore database 
-var db = firebase.firestore();
+   var db = firebase.firestore();
 
 // Set the timestamp to true - to prevent console errors 
 db.settings({
   timestampsInSnapshots: true
 });
 
-// Add a new entry to the users database collection - with user information
-  db.collection("users").add({
+
+
+// Add a new entry to the users database collection - with uid for easy callback
+  db.collection("users").doc(uid).set({
+    profileimg: imageURL,
     uid: uid,
-    pic: profileImage,
     name: name,
     age: age,
     gender: gender,
     email: email,
+    state: "online",
     bio: null
 })
+
 // For debug - console log wether the database entry was success full or not
 .then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
-   // window.location = "dashboard";
+    console.log("Document written with ID: ", uid);
+    window.location = "dashboard";
 })
 .catch(function(error) {
     console.error("Error adding document: ", error);
 });
 
-})
+});
+
+  })
+
 
 //*********************************** If not a new user ***********************************
 
-.catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // error debug
-  console.log(errorCode);
-   // error debug
-  console.log(errorMessage);
-  // ...
-});
 }
 })
 }
