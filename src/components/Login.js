@@ -11,6 +11,8 @@ import { Link, Router, Route, browserHistory } from "react-router";
 //Import form elements from react-bootstrap
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
+import logo from '../Images/rollerskatelogo.svg';
+
 
 
 
@@ -99,10 +101,12 @@ firebase.auth().signInWithEmailAndPassword( email, password)
 	render(){
 		return(
          <div id="login">
-           <div id="login-home">
-           <Link to={"/"}> &larr; back </Link>
-            <Link to={"/login"}>HOME</Link>
+           <div id="login-nav">
+              <Link to={"/"}> &larr; back </Link>
            </div>
+           <div id="login-home">
+                    <img src={logo}/>
+            </div>
       <div id="login-form">
 			<h4>Login</h4>
       
@@ -137,12 +141,13 @@ firebase.auth().signInWithEmailAndPassword( email, password)
           </Button>
         </form>
            <div id="link-bar">
-             <div className="register-button">
+              <ul>
+               <li>
+               <p> Don't have and account? </p>
                <Link to={"register"}>Register</Link>
-            </div>
-            <div className="forgotpassword-button">
-               <Link to={"forgotpassword"}>Forgot your password?</Link>
-            </div>
+               </li>
+               <li><Link to={"forgotpassword"}>Forgot your password?</Link></li>
+              </ul>
             </div>
            </div>
         </div>

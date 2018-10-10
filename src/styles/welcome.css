@@ -1,12 +1,97 @@
+@import url('https://fonts.googleapis.com/css?family=Orienta');
+
+@import url('https://fonts.googleapis.com/css?family=Lily+Script+One');
+
 #welcome{
 	text-align: center;
-	padding-top: 200px;
+	width: 100%;
+	height: 100vh;
+	background-color: #9C08D9;
 }
 
-#welcome button{
-    width: 100px;
+#box1{
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	left: 12%;
+	top: 150px;
+}
+
+#box2{
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	left: 80%;
+	top: 400px;
+}
+
+#line1{
+	height: 80px;
+	width: 80px;
+	position: absolute;
+	left: 75%;
+	top: 200px;
+}
+
+#logo{
+	padding-top: 150px;
+}
+
+#logo img{
+	margin: auto;
+	height: 100px;
+	width: 100px;
+}
+
+#welcome h3{
+	font-size: 45px;
+	color: #fff;
+	font-family: 'Lily Script One', cursive;
+	padding-top: 50px;
+}
+
+#welcome p{
+	font-family: 'Orienta', sans-serif;
+	font-size: 13px;
+	color: #fff;
+}
+
+#enter-button{
+	padding-top: 160px;
+}
+
+#enter-button button{
+    width: 200px;
+    background-color: transparent;
 	height: 4em;
 	border-radius: 20px;
 	text-align: none;
-	border: none;
+	border: 2.8px solid #fff ;
+	font-family: 'Orienta', sans-serif;
+	font-size: 13px;
+	text-decoration: none;
+	color: #fff;
+}
+
+
+#welcome button:hover{
+	color: #fff;
+}
+
+
+
+#welcome button a{
+	text-decoration: none;
+	color: #fff;
+}
+
+#welcome button a:hover{
+	color: #fff;
+}
+
+
+
+#welcome button a:visited{
+	color: #fff;
+	text-decoration: none;
 }
