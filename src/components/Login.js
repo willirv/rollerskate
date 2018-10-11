@@ -13,6 +13,12 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 import logo from '../Images/rollerskatelogo.svg';
 
+import leftarrow from '../Images/leftarrow.svg';
+
+import rightarrow from '../Images/rightarrow.svg';
+
+import $ from "jquery";
+
 
 
 
@@ -102,7 +108,7 @@ firebase.auth().signInWithEmailAndPassword( email, password)
 		return(
          <div id="login">
            <div id="login-nav">
-              <Link to={"/"}> &larr; back </Link>
+              <Link to={"/"}> <img src={leftarrow}/> </Link>
            </div>
            <div id="login-home">
                     <img src={logo}/>

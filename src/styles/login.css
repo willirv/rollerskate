@@ -21,6 +21,8 @@
 }
 
 #login-nav{
+	height: 10px;
+	width: 10px;
 	position: absolute;
 	top: 55px;
 	left: 10%;

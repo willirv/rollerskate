@@ -251,8 +251,8 @@ firebase.auth().onAuthStateChanged((user) => {
     </div>
 
     <div id="choices">
-        <button id="Yes">Yes</button>
-        <button id="No">No</button>
+        <button id="Yes">Y</button>
+        <button id="No">X</button>
     </div>
 			<div id="profile_pop">
       <p id="close">X</p>

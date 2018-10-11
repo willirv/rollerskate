@@ -10,94 +10,129 @@ import { Link, Router, Route, browserHistory } from "react-router";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 
+import $ from "jquery";
+
 export default class upload extends React.Component{
-// On component mount
+
+// Put the file upload into the already made user database 
+  // User inputs the images 
+    // Get the url of the inputed image 
+      // Either turn the image into a blob and put into the database of the user 
+         //Or... Put the file into the database without blob
+
 componentDidMount() {
 
-// Declare the input variable 
-   var input = document.querySelector('input');
+// When the image submit button is pressed 
+  $("#image_submit").click(function(){
+    console.log("test");
 
-// Declare the preview variable 
-   var preview = document.querySelector('.preview');
+// Check to see whether the user is authed () in firebase 
+ firebase.auth().onAuthStateChanged((user) => {
 
-// Add a listener for the input field
-   input.addEventListener('change', updateImageDisplay);
+// If they are a user, get the uid of the user and console.log for debug
+  if (user) {
 
-// Create a function for the update image display -- For previewing the first child of uploaded image =
-   function updateImageDisplay() {
-  while(preview.firstChild) {
-    preview.removeChild(preview.firstChild);
-  }
+ // Declare the uid varaible with the users uid 
+    var uid = user.uid;
 
-// Set a varibale for the current files - the inputted files
-  var curFiles = input.files;
+// Console.log the uid of the user 
+    console.log(uid);
 
-// When there is currently no files uploaded - append placeholder text
-  if(curFiles.length === 0) {
-    var para = document.createElement('p');
-    para.textContent = 'Pls upload a photo';
-    preview.appendChild(para);
-  } 
+ // Declare the file input
+    var file = document.getElementById("image_uploads").files[0];
+    
+// Declare the file name variable 
+    var filename = document.getElementById("image_uploads").files[0].name;
 
-// If an image is uploaded - create an unordered list with the image
-   // Replace the appended paragraph with the file name, size 
-  else {
-// Create list where file will be appended
-    var list = document.createElement('ol');
-//
-    preview.appendChild(list);
-// Count the number of uploaded images and make an entry for each one
-    for(var i = 0; i < curFiles.length; i++) {
-      var listItem = document.createElement('li');
-   // Check whether the file type is correct 
-      if(validFileType(curFiles[i])) {
-        var image = document.createElement('img');
-        image.src = window.URL.createObjectURL(curFiles[i]);
+// Console.log the filename for debug 
+    console.log(filename);
 
-        listItem.appendChild(image);
 
-      } else {
-        console.log("upload error");
-      }
+// Declare the storage url of storage location
+    var storageUrl = "/Images/";
 
-      list.appendChild(listItem);
+// Declare the storage ref --- Where the file is to be placed
+    var storageRef = firebase.storage().ref(storageUrl).child(filename);
+
+// Set a variable for the task that is to be continued 
+    storageRef.put(file)
+
+// On the state chnaged of the input run the function snapshot => if it works, might need to change
+     .then(function(snapshot) {
+
+// Set a variable for the percentage of the file upload => from the snapshot function
+    var percentage = snapshot.bytesTransferred/snapshot.totalBytes *100;
+
+// Console.log the percentage of the upload to the console for debug
+    console.log(percentage);
+
+// Set the location of where to append the percentage metre => may remove in the future 
+    var location = document.getElementById("percentage-tab");
+
+// Append the percentage to the to the percentage tab div 
+    location.append(percentage);
+
+// If the percentage of the file upload === 100
+  // Get the url of the file that was just uploaded 
+    if (percentage== 100){
+    	storageRef.getDownloadURL().then(function (url) {
+        
+         // console.log the url of the image for debug 
+    		console.log(url);
+
+         // Set the database variable
+    		var db = firebase.firestore();
+
+         // Set the database settings to true => to prevent errors within console
+    		 db.settings({
+             timestampsInSnapshots: true
+             });
+
+         //Set the docref of the database to the the users collection => with the uid of the auth()ed user
+             var docRef = db.collection("users").doc(uid);
+
+         // set merge => to prevent existing data 
+             var setWithMerge = docRef.set({profileimg: url}, { merge: true })
+         // When the document is set => change the window location to the main dashboard
+             .then(function () {
+             	window.location = "dashboard";
+             });
+
+        
+
+            
+    	});
+
+
+
+
     }
-  }
-}
+});
 
-// delcaccepted file types 
-var fileTypes = [
-  'image/jpeg',
-  'image/pjpeg',
-  'image/png'
-]
-
-function validFileType(file) {
-  for(var i = 0; i < fileTypes.length; i++) {
-    if(file.type === fileTypes[i]) {
-      return true;
-    }
-  }
-
-  return false;
-}
 
 }
+
+//Firebase auth()
+});
+// click function
+});
+// Mount
+}
+
+
+
+
+
 
 
 render(){
 return(
 <div id="upload-form">
-<form method="post" encType="multipart/form-data">
-  <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple/>
-  
-  <div className="preview">
-    <p>Upload a profile picture to get started!</p>
-  </div>
-
-
-    <button>Submit</button>
-</form>
+   <div id="file-input">
+      <div id="percentage-tab"></div>
+   <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple/>
+   <button id="image_submit">Submit</button>
+   </div>
 </div>
 			);
 	}

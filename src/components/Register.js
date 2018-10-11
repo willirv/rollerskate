@@ -9,82 +9,17 @@ import { Link, Router, Route, browserHistory } from "react-router";
 //Import form elements from react-bootstrap
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
+import logo from '../Images/rollerskatelogo.svg';
+
+import leftarrow from '../Images/leftarrow.svg';
+
+import rightarrow from '../Images/rightarrow.svg';
+
+
+import $ from "jquery";
+
 export default class Register extends React.Component{
 
-
-
-// On component mount
-componentDidMount() {
-
-// Declare the input variable 
-   var input = document.querySelector('input');
-
-// Declare the preview variable 
-   var preview = document.querySelector('.preview');
-
-// Add a listener for the input field
-   input.addEventListener('change', updateImageDisplay);
-
-// Create a function for the update image display -- For previewing the first child of uploaded image =
-  function updateImageDisplay() {
-  while(preview.firstChild) {
-    preview.removeChild(preview.firstChild);
-  }
-
-// Set a varibale for the current files - the inputted files
-  var curFiles = input.files;
-
-// When there is currently no files uploaded - append placeholder text
-  if(curFiles.length === 0) {
-    var para = document.createElement('p');
-    para.textContent = 'Pls upload a photo';
-    preview.appendChild(para);
-  } 
-
-// If an image is uploaded - create an unordered list with the image
-   // Replace the appended paragraph with the file name, size 
-  else {
-// Create list where file will be appended
-    var list = document.createElement('ol');
-//
-    preview.appendChild(list);
-// Count the number of uploaded images and make an entry for each one
-    for(var i = 0; i < curFiles.length; i++) {
-      var listItem = document.createElement('li');
-   // Check whether the file type is correct 
-      if(validFileType(curFiles[i])) {
-        var image = document.createElement('img');
-        image.src = window.URL.createObjectURL(curFiles[i]);
-
-        listItem.appendChild(image);
-
-      } else {
-        console.log("upload error");
-      }
-
-      list.appendChild(listItem);
-    }
-  }
-}
-
-// delcaccepted file types 
-var fileTypes = [
-  'image/jpeg',
-  'image/pjpeg',
-  'image/png'
-]
-
-function validFileType(file) {
-  for(var i = 0; i < fileTypes.length; i++) {
-    if(file.type === fileTypes[i]) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-}
 
 
 
@@ -166,30 +101,6 @@ console.log("user id" + firebase.auth().currentUser.uid)
 //Declare a variable for the new users 
 var uid = firebase.auth().currentUser.uid;
 
-//Declare the file variable as "image/ uploads"
-  var file = document.getElementById("image_uploads").file;
-//Create a new blob file .jpeg for upload to firebase
-  var blob = new Blob([file], {type: "images/jpeg"});
-//Create a path to the image database with storage url variable
-  var storageUrl = "/Images/";
-//Declare the storageRef variable - with the storage url and the name of new user
-  var storageRef = firebase.storage().ref(storageUrl + name);
-//Push the image blob to firebase database 
-  storageRef.put(blob)
-
-//When pushed run the snapshot function // console.log for debug 
-//Function runs for 9 seconds enough for file upload 
-  .then(function(snapshot) {
-//Consolelog that the file has uploaded for debug
-  console.log('Uploaded a blob or file!');
-// Get the url of of the file uploaded and then run the download url event
-  storageRef.getDownloadURL().then(downloadURL => {
-//Declare the image Url 
-    imageURL = downloadURL;
-//Log the Url for debug
-    console.log(imageURL);
-//Declare the image url variable
-    var imageURL;
 
 
 
@@ -207,7 +118,6 @@ db.settings({
 
 // Add a new entry to the users database collection - with uid for easy callback
   db.collection("users").doc(uid).set({
-    profileimg: imageURL,
     uid: uid,
     name: name,
     age: age,
@@ -220,15 +130,13 @@ db.settings({
 // For debug - console log wether the database entry was success full or not
 .then(function(docRef) {
     console.log("Document written with ID: ", uid);
-    window.location = "dashboard";
+    window.location = "upload";
 })
 .catch(function(error) {
     console.error("Error adding document: ", error);
 });
 
-});
 
-  })
 
 
 //*********************************** If not a new user ***********************************
@@ -244,26 +152,17 @@ db.settings({
   render() {
       return(
          <div id="register">
-           <div id="register-home">
-           <Link to={"/login"}> &larr; back </Link>
-            <Link to={"/login"}>HOME</Link>
-           </div>
+          <div id="back-nav">
+           <Link to={"/login"}><img src={leftarrow}/></Link>
+          </div>
+          <div id="home-nav">
+            <Link to={"/"}><img src={logo}/></Link>
+          </div>
       <div id="register-form">
       <h4>Register</h4>
 
 
-<form method="post" encType="multipart/form-data">
-  <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple/>
-  
-  <div className="preview">
-    <p>Upload a profile picture to get started!</p>
-  </div>
-</form>
-
-
-
-
-/* Enter name */
+<p> Enter Your Name </p>
       <form onSubmit={this.handleSubmit}>
 
 
@@ -272,53 +171,53 @@ db.settings({
               id="name"
               autoFocus
               type="name"
-              placeholder="Enter your name"
+              placeholder="Name"
               value={this.state.name}
               onChange={this.handleChange}
             />
           </FormGroup>
 
-/* Enter age */        
+<p> Enter Your Age </p>       
              <FormGroup controlId="age" bsSize="large">
             <FormControl
               id="age"
               autoFocus
               type="age"
-              placeholder="Enter your age"
+              placeholder="Age"
               value={this.state.age}
               onChange={this.handleChange}
             />
           </FormGroup>
 
-/* Get Gender */
+<p> Select Your Gender </p> 
            <FormGroup controlId="gender" bsSize="large">
             <FormControl
               id="gender"
               autoFocus
-              placeholder="Enter your gender"
+              placeholder="Gender"
               value={this.state.gender}
               onChange={this.handleChange}
             />
           </FormGroup>
 
 
-/* Enter email */      
+<p> Enter Your Email </p>      
           <FormGroup controlId="email" bsSize="large">
             <FormControl
               id="email"
               autoFocus
               type="email"
-              placeholder="Enter your email"
+              placeholder="Email"
               value={this.state.email}
               onChange={this.handleChange}
             />
           </FormGroup>
 
-/* Enter password */      
+<p> Create A Password </p>     
           <FormGroup controlId="password" bsSize="large">
             <FormControl
               id="password"
-              placeholder="Enter your password"
+              placeholder="Password"
               value={this.state.password}
               onChange={this.handleChange}
               type="password"
