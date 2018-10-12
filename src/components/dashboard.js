@@ -63,8 +63,35 @@ componentDidMount() {
 //**************************************** Yes *********************// 
 // When yes is selected -- run function 
     $("#Yes").click(function(){
+      
+    var db = firebase.firestore();
 // Console.log - for debug
-    console.log("Yes");
+   console.log("Yes");
+// Get the id of the last child of the ptc matches div
+   var yes_uid = $("#ptc-matches").children().last().attr('id');
+// console.log the yes varible to the console for debug => should print the uid of the targeted user
+   console.log(yes_uid);
+
+// Remove the selected div from the back of the ptc matches div
+   $("#ptc-matches").children().last().remove();
+
+// Set the Ref for the database to the yes users content
+   var Ref = db.collection("users").doc(yes_uid).collection("no");
+
+// Checking the no collection for debug => will port over to the yes component
+    db.collection("users").doc(yes_uid).collection("no")
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id);
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+   
+
 });
 
 //**************************************** No *********************// 
