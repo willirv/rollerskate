@@ -26,6 +26,39 @@ componentDidMount() {
     $("#profile_pop").hide();
 });
 
+//**************************************** Updating the bio of the user *********************//
+    $("#bio-submit").click(function(){
+
+
+    firebase.auth().onAuthStateChanged((user) => {
+// If they are a user
+    if (user) {
+// Set the data base variable 
+    var db = firebase.firestore();
+// Find the value of the inputed bio
+    var biotext = document.getElementById("bio-input").value;
+// Log the biotext variable to console 
+    console.log(biotext);
+// Declare the uid of the users uid
+    var uid = user.uid;
+// Console.log the uid of the user for debug
+    console.log(user.uid);
+// Declare the location where we are going to put the bio text within the users database 
+    var docRef = db.collection("users").doc(uid);
+
+// Set a merge within the database => to prevent the data from overiding existing enteries
+    var setWithMerge = docRef.set({
+    bio: biotext,
+    }, { merge: true });
+
+// Reload to update the bio content;
+    $("#bio-content").load("#bio-content");
+
+  }
+ 
+});
+});
+
 //**************************************** Yes/ No functionality *********************//  
 //**************************************** Yes *********************// 
 // When yes is selected -- run function 
@@ -136,18 +169,27 @@ firebase.auth().onAuthStateChanged((user) => {
 // Delcare the variable for the users age
       var age = doc.data().age;
 
+
+      var bio = doc.data().bio;
+
       console.log(doc.data().profileimg);
       console.log(name);
       console.log(age);
+      console.log(bio);
 
       document.getElementById("pop_photo").src= display_pic;
 
       document.getElementById("pop_info").append(name + "," + age);
+
+      document.getElementById("bio-content").append(bio);
     }
    }).catch(function(error){
     console.log("Error getting document:", error)
    })
   }
+
+//**************************************** The match field/ container *********************// 
+
   // Call the users database from firebase and get all of the Users data - will change to allow user to refine data
   db.collection("users").get().then(function(querySnapshot) {
 // For each element of data call the function doc
@@ -170,6 +212,7 @@ firebase.auth().onAuthStateChanged((user) => {
       console.log(uid);
 
       var state = doc.data().state;
+
 
 
       // Append the uid of the user to -- a div value 
@@ -258,6 +301,11 @@ firebase.auth().onAuthStateChanged((user) => {
       <p id="close">X</p>
 			      <img id="pop_photo" src=""/>
             <h3 id="pop_info"></h3>
+            <p id="bio-content"></p>
+      <div id="add-bio">
+          <input id="bio-input" type="text"/>
+          <button id="bio-submit" type="submit">Update Bio</button>
+      </div>
       <div id="logout">
             <Button
             id="logout-button"

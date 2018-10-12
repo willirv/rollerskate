@@ -50,11 +50,9 @@
     background-color: #fff;
 }
 
-
-
-
-#dummy{
-    display: none;
+#add-bio{
+    padding-top: 20px;
+    text-align: center;
 }
 
 #choices{

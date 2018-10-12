@@ -9,6 +9,10 @@ import { Link, Router, Route, browserHistory } from "react-router";
 //Import form elements from react-bootstrap
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
+import logo from '../Images/rollerskatelogo.svg';
+
+import camera from '../Images/camera.svg';
+
 
 import $ from "jquery";
 
@@ -129,9 +133,14 @@ render(){
 return(
 <div id="upload-form">
    <div id="file-input">
+      <div id="upload-image">
+        <h4>Upload</h4>
+        <p>A Profile Image</p>
+        <img src={camera}/>
       <div id="percentage-tab"></div>
    <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg, .png" multiple/>
    <button id="image_submit">Submit</button>
+       </div>
    </div>
 </div>
 			);
