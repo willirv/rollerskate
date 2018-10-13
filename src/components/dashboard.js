@@ -59,14 +59,69 @@ componentDidMount() {
 });
 });
 
-//**************************************** Yes/ No functionality *********************//  
+//**************************************** Yes/ No functionality *********************//
+
+
 //**************************************** Yes *********************// 
 // When yes is selected -- run function 
     $("#Yes").click(function(){
-      
-    var db = firebase.firestore();
+   
+// Find the current auth() user => to get the uid of the user
+   firebase.auth().onAuthStateChanged((user) => { 
+
+// Set the uid variable as the auth() user's
+   var uid = user.uid;
+
+// Console.log the uid of the logged in user 
+   console.log(uid);
+
+// Declare the variable for the firebase database   
+   var db = firebase.firestore();
+
 // Console.log - for debug
    console.log("Yes");
+
+// Call the auth() users database to the collection no => and get all the documents within
+  db.collection("users").doc(uid).collection("no")
+  .get()
+  .then(function(querySnapshot){
+   querySnapshot.forEach(function(doc){
+    console.log("currentuser:" + doc.id);
+    var user_yes = doc.id;
+
+// Set the Ref for the database to the yes users content
+   var Ref = db.collection("users").doc(yes_uid).collection("no");
+
+
+// Checking the no collection for debug => will port over to the yes component
+    db.collection("users").doc(yes_uid).collection("no")
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+
+           //console.log(user_yes);
+            // doc.data() is never undefined for query doc snapshots
+            console.log("potencial match:" + doc.id);
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+  });
+   })
+    
+  })
+
+
+
+//**************************************** Match check -- Check the whether both users have said yes *********************//
+// Get the uid of the current div on the screen
+   // Call firebase ref with their uid to the yes collection 
+     // We then need to check whether the uid of the potencial match is within the collection 
+       // If that is true, show a pop up => its a match etc.
+         // If it is false, continue with the matching process
+
 // Get the id of the last child of the ptc matches div
    var yes_uid = $("#ptc-matches").children().last().attr('id');
 // console.log the yes varible to the console for debug => should print the uid of the targeted user
@@ -74,24 +129,7 @@ componentDidMount() {
 
 // Remove the selected div from the back of the ptc matches div
    $("#ptc-matches").children().last().remove();
-
-// Set the Ref for the database to the yes users content
-   var Ref = db.collection("users").doc(yes_uid).collection("no");
-
-// Checking the no collection for debug => will port over to the yes component
-    db.collection("users").doc(yes_uid).collection("no")
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id);
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
    
-
 });
 
 //**************************************** No *********************// 
