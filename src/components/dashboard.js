@@ -26,6 +26,13 @@ componentDidMount() {
     $("#profile_pop").hide();
 });
 
+
+    // when my profile is selected -- show profile
+  $("#match-close").click(function(){
+    $("#itsamatch").hide();
+});
+
+
 //**************************************** Updating the bio of the user *********************//
     $("#bio-submit").click(function(){
 
@@ -73,54 +80,91 @@ componentDidMount() {
    var uid = user.uid;
 
 // Console.log the uid of the logged in user 
-   console.log(uid);
+  // console.log(uid);
 
 // Declare the variable for the firebase database   
    var db = firebase.firestore();
 
 // Console.log - for debug
-   console.log("Yes");
+  // console.log("Yes");
 
-// Call the auth() users database to the collection no => and get all the documents within
+
+
+// Need to check the auth() users database for the uid of the potencial match
+  // Then check the database of the potencial match for the uid of the auth user 
+    // then run function if its a match
+
+
+//**************************************** Calling both the current auth() users database and the match on the screens and comparing the data => to see wheather its a match *********************// 
+// Call the auth() users database to the collection no => and get all the documents within !!! Have to change to yes
   db.collection("users").doc(uid).collection("no")
   .get()
+// Query snapshot the firebase database 
   .then(function(querySnapshot){
+// For each document within the database 
    querySnapshot.forEach(function(doc){
+// Console.log them with a string for debugging
     console.log("currentuser:" + doc.id);
+
+// Declare a variable for the users data
     var user_yes = doc.id;
+
+
+   // console.log(user_yes);
 
 // Set the Ref for the database to the yes users content
    var Ref = db.collection("users").doc(yes_uid).collection("no");
 
-
-// Checking the no collection for debug => will port over to the yes component
+// After finding the auth() users data => then get the data for the potencial match on the screen
+  // Using the declared variable of the present div => get the collection of no selections !!!!! Have to change to yes
     db.collection("users").doc(yes_uid).collection("no")
     .get()
+    // Add a querySnapshot function
     .then(function(querySnapshot) {
+       // For each document within the user on the screens database 
         querySnapshot.forEach(function(doc) {
+          // set a variable for the potencial matches data 
 
-           //console.log(user_yes);
-            // doc.data() is never undefined for query doc snapshots
-            console.log("potencial match:" + doc.id);
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
+          var poten_data = doc.id;
 
-  });
-   })
-    
-  })
+          // Console.log the data within the no collection
+           // console.log("potencial match:" + doc.id);
 
 
+              // Declare a duplicate variable => as false
+     var match = false;
 
-//**************************************** Match check -- Check the whether both users have said yes *********************//
+
+     //**************************************** Match check -- Check the whether both users have said yes *********************//
 // Get the uid of the current div on the screen
    // Call firebase ref with their uid to the yes collection 
      // We then need to check whether the uid of the potencial match is within the collection 
        // If that is true, show a pop up => its a match etc.
          // If it is false, continue with the matching process
+
+
+// Checking the potencial matches database for the uid of the currently logged in user 
+  // If the data of the potencial match = the ui of the auth user
+      if(poten_data === uid){
+         // Then console.log "this is a match"
+            console.log("This is a match");
+            $("#itsamatch").show();
+           }
+       else{
+        console.log("no match");
+       }
+
+
+        });
+
+    });
+
+  });
+
+})
+    
+})
+
 
 // Get the id of the last child of the ptc matches div
    var yes_uid = $("#ptc-matches").children().last().attr('id');
@@ -361,6 +405,13 @@ firebase.auth().onAuthStateChanged((user) => {
     <div id="choices">
         <button id="Yes">Y</button>
         <button id="No">X</button>
+    </div>
+    <div id="itsamatch">
+        <p id="match-close">X</p>
+         <div id="itsamatch-content">
+      <h3 id="itsamatch-head">Its a match!</h3>
+          <button id="match-message">Message this user</button>
+       </div>
     </div>
 			<div id="profile_pop">
       <p id="close">X</p>
