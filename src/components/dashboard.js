@@ -21,6 +21,7 @@ componentDidMount() {
     $("#profile_pop").show();
 });
 
+
 // When close box is selected close profile
     $("#close").click(function(){
     $("#profile_pop").hide();
@@ -31,6 +32,24 @@ componentDidMount() {
   $("#match-close").click(function(){
     $("#itsamatch").hide();
 });
+
+
+//**************************************** Log out button functionality *********************// 
+// When the logout button in the profile tab is clicked - run function
+  $("#logout-button").click(function(){
+// Call firebase and set the auth() state of the user to none --  
+      firebase.auth().signOut().then(function() {
+// If the signout of the user is successful 
+// Console.log for debug
+  console.log("sign-out process was successful");
+// Set the signed out users location to the login tab
+  window.location = "login";
+}, function(error) {
+  // An error happened.
+});
+
+});
+
 
 
 //**************************************** Updating the bio of the user *********************//
@@ -82,8 +101,20 @@ componentDidMount() {
 // Console.log the uid of the logged in user 
   // console.log(uid);
 
+
 // Declare the variable for the firebase database   
    var db = firebase.firestore();
+
+// Create a new collection and document within the auth() user database => called yes
+   var docRef = db.collection("users").doc(uid).collection("yes").doc(yes_uid);
+
+// Merge the new collection within the existing users database => to prevent all the databeing overided
+   var setWithMerge = docRef.set({
+    yes_uid
+}, { merge: true });
+
+
+
 
 // Console.log - for debug
   // console.log("Yes");
@@ -171,10 +202,13 @@ componentDidMount() {
 // console.log the yes varible to the console for debug => should print the uid of the targeted user
    console.log(yes_uid);
 
+
 // Remove the selected div from the back of the ptc matches div
    $("#ptc-matches").children().last().remove();
    
 });
+
+
 
 //**************************************** No *********************// 
 // When no is selected - run function
@@ -218,21 +252,6 @@ componentDidMount() {
 
 });
 
-//**************************************** Log out button functionality *********************// 
-// When the logout button in the profile tab is clicked - run function
-  $("#logout-button").click(function(){
-// Call firebase and set the auth() state of the user to none --  
-      firebase.auth().signOut().then(function() {
-// If the signout of the user is successful 
-// Console.log for debug
-  console.log("sign-out process was successful");
-// Set the signed out users location to the login tab
-  window.location = "login";
-}, function(error) {
-  // An error happened.
-});
-
-});
 
 
 //**************************************** Profile Element *********************// 
@@ -298,11 +317,33 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 
 //**************************************** The match field/ container *********************// 
+// Instead of getting all the documents within the database of users
+// We need to add a male/female option within the profile page => only shows males, females or both 
+// We also need to check the database of the user to see whether they have already said yes/no to the user 
+// Hide the users that they have already said yes/no to
+firebase.auth().onAuthStateChanged((user) => {
 
-  // Call the users database from firebase and get all of the Users data - will change to allow user to refine data
-  db.collection("users").get().then(function(querySnapshot) {
+  var auth_uid = user.uid;
+
+  console.log(auth_uid);
+
+  db.collection("users").doc(auth_uid)
+
+  .get()
+  .then(function(doc){
+
+  var preference = doc.data().preference;
+
+  console.log(preference + "is what this user is interested in")
+
+// Call the users database from firebase and get all of the Users data - will change to allow user to refine data
+  db.collection("users").where("preference", "==", preference)
+  .get()
+  .then(function(querySnapshot) {
+
 // For each element of data call the function doc
-    querySnapshot.forEach(function(doc) {
+   querySnapshot.forEach(function(doc) {
+
 // Console each of the user elements to console for debug
       console.log(doc.data());
 // Declare the data variable 
@@ -344,16 +385,16 @@ firebase.auth().onAuthStateChanged((user) => {
       img.src = profileimgurl;
 
 // Identifier
-      var identifier = document.createElement("div");
+      //var identifier = document.createElement("div");
 
-      identifier.setAttribute("value", uid);
+     // identifier.setAttribute("value", uid);
 
 
-      identifier.setAttribute("id", uid);
+      //identifier.setAttribute("id", uid);
       
-      var idcontent = document.createTextNode(uid);
+      //var idcontent = document.createTextNode(uid);
 
-     identifier.appendChild(idcontent);
+     //identifier.appendChild(idcontent);
 
 // User Content
       var userContent = document.createElement("div");
@@ -371,16 +412,23 @@ firebase.auth().onAuthStateChanged((user) => {
       newDiv.append(img);
 
 
-      newDiv.append(identifier);
+      //newDiv.append(identifier);
 
 
       // add the newly created element and its content into the DOM 
       var currentDiv = document.getElementById("dummy"); 
       document.getElementById("ptc-matches").append(newDiv); 
 
+
+
+
+         });
     });
 });
-});
+
+    });
+
+  });
 }
 
 
@@ -422,7 +470,7 @@ firebase.auth().onAuthStateChanged((user) => {
           <input id="bio-input" type="text"/>
           <button id="bio-submit" type="submit">Update Bio</button>
       </div>
-      <div id="logout">
+    <div id="logout">
             <Button
             id="logout-button"
             block

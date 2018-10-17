@@ -13,6 +13,7 @@ import fgpassword from "./components/forgotpassword.js"
 import dashboard from "./components/dashboard";
 import upload from "./components/upload";
 import profileimg from "./global/profile_img";
+import preference from "./components/preference.js";
 
 
 //********************** Set Route paths for components and render Home component /
@@ -28,6 +29,7 @@ export default class App extends React.Component{
 			    <Route path={"dashboard"} component={dashboard} />
 			    <Route path={"upload"} component={upload} />
 			    <Route path={"profileimg"} component={profileimg} />
+			    <Route path={"preference"} component={preference} />
 
 			  </Router>
 			);

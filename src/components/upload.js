@@ -99,7 +99,7 @@ componentDidMount() {
              var setWithMerge = docRef.set({profileimg: url}, { merge: true })
          // When the document is set => change the window location to the main dashboard
              .then(function () {
-             	window.location = "dashboard";
+             	window.location = "preference";
              });
 
         
