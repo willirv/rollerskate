@@ -11,6 +11,16 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 import $ from "jquery";
 
+import anime from 'animejs';
+
+import logo from '../Images/rollerskatelogo.svg';
+
+import cross from '../Images/cross.svg';
+
+import tick from '../Images/tick.svg';
+
+import profile_icon from '../Images/profile-icon.svg';
+
 
 export default class Current extends React.Component{
 
@@ -32,6 +42,56 @@ componentDidMount() {
   $("#match-close").click(function(){
     $("#itsamatch").hide();
 });
+
+// When the user selects the gender preference of males 
+  // We need to update the database so the users preference === males 
+     // After the selections refresh the dashboard div - similar to the bio element  
+   $("#males").click(function(){
+    // Check the current auth() state of the user
+     firebase.auth().onAuthStateChanged((user) => {
+    // Declare the uid of the current user if there is one
+     var uid = user.uid;
+    // Declare the database variable => so that we can get the data for the user and change it 
+     var db = firebase.firestore();
+   // Declare the doc ref the the currently auth users database
+     var docRef = db.collection("users").doc(uid);
+   // We then want to merge the new value depending on the users gender choice on their profile
+      // Set the preference of the user to male => because they have selected male
+    var setWithMerge = docRef.set({
+    preference: "Male",
+    }, { merge: true });
+   // Console.log for debug
+    //console.log("changing the gender option of the user to males");
+
+    // Reload to update the bio content;
+    $("#bio-content").load("#bio-content");
+     });
+   });
+
+// When the user selects the gender preference of females 
+   // We need to update the databse so the users preference changes to === female
+     // After the selections refresh the dashboard div - similar to the bio element  
+    $("#females").click(function(){
+
+     firebase.auth().onAuthStateChanged((user) => {
+    // Declare the uid of the current user if there is one
+     var uid = user.uid;
+    // Declare the database variable => so that we can get the data for the user and change it 
+     var db = firebase.firestore();
+   // Declare the doc ref the the currently auth users database
+     var docRef = db.collection("users").doc(uid);
+   // We then want to merge the new value depending on the users gender choice on their profile
+      // Set the preference of the user to male => because they have selected female
+    var setWithMerge = docRef.set({
+    preference: "Female",
+    }, { merge: true });
+   // Console.log for debug
+    //console.log("changing the gender option of the user to males");
+
+    // Reload to update the bio content;
+    $("#bio-content").load("#bio-content");
+     });
+   });
 
 
 //**************************************** Log out button functionality *********************// 
@@ -202,9 +262,11 @@ componentDidMount() {
 // console.log the yes varible to the console for debug => should print the uid of the targeted user
    console.log(yes_uid);
 
+// Rather than removing the child => animate through anime.js
+  // Remove the selected div from the back of the ptc matches div
 
-// Remove the selected div from the back of the ptc matches div
-   $("#ptc-matches").children().last().remove();
+$("#ptc-matches").children().last().remove();
+
    
 });
 
@@ -219,11 +281,23 @@ componentDidMount() {
 
 // Declare to no variable - get the id of the last variable of ptc matches = uid;
     var no = $("#ptc-matches").children().last().attr('id');
+
+// Declare a new varibale for the last element for animejs 
+    var element = document.querySelector('#ptc-matches div:last-child')
+
 // Console.log no for debug should print the user id of the match on screen
     console.log(no);
 // Remove the top div out of view of the user
-    $("#ptc-matches").children().last().remove();
+   $("#ptc-matches").children().last().fadeOut(800, function(){
+     $("#ptc-matches").children().last().remove();
+   });
 // Get the current signed in users uid
+   anime({
+   targets: element,
+   translateX: 600,
+   easing: 'easeInOutQuart',
+   rotate: 180
+});
 
 //**************************************** Signed in user said no/ to user *********************// 
     //Under the current users doc create a new collection called no
@@ -321,23 +395,27 @@ firebase.auth().onAuthStateChanged((user) => {
 // We need to add a male/female option within the profile page => only shows males, females or both 
 // We also need to check the database of the user to see whether they have already said yes/no to the user 
 // Hide the users that they have already said yes/no to
+// Find the current auth user
 firebase.auth().onAuthStateChanged((user) => {
-
+// Set the uid of the auth user
   var auth_uid = user.uid;
-
+// Log it to the console
   console.log(auth_uid);
-
+// Get the database from the current auth user 
   db.collection("users").doc(auth_uid)
 
   .get()
+// Then run the function for the documents within 
   .then(function(doc){
 
+// Set a variable for the currently auth() users gender preference
   var preference = doc.data().preference;
 
+// Console.log it for debug 
   console.log(preference + "is what this user is interested in")
 
 // Call the users database from firebase and get all of the Users data - will change to allow user to refine data
-  db.collection("users").where("preference", "==", preference)
+  db.collection("users").where("gender", "==", preference)
   .get()
   .then(function(querySnapshot) {
 
@@ -402,7 +480,7 @@ firebase.auth().onAuthStateChanged((user) => {
       userContent.setAttribute("id", "userContent");
 
 
-      var newContent = document.createTextNode("name:" + name + "age:" + age); 
+      var newContent = document.createTextNode(name + "," + age); 
       
       userContent.appendChild(newContent);
 
@@ -440,8 +518,8 @@ firebase.auth().onAuthStateChanged((user) => {
     <div id="match_container">
     <div id="Head">
     <ul> 
-      <li><a id="My-profile">My Profile</a></li>
-      <li><a id="Home"></a>Home</li>
+      <li><a id="My-profile"><img src={profile_icon}/></a></li>
+      <li><a id="Home">Home</a></li>
       <li><a id="Messages">Messages</a></li>
     </ul>
     </div>
@@ -451,8 +529,10 @@ firebase.auth().onAuthStateChanged((user) => {
     </div>
 
     <div id="choices">
-        <button id="Yes">Y</button>
-        <button id="No">X</button>
+       <ul>
+        <li><button id="Yes"><img src={tick}/></button></li>
+        <li><button id="No"><img src={cross}/></button></li>
+        </ul>
     </div>
     <div id="itsamatch">
         <p id="match-close">X</p>
@@ -466,10 +546,17 @@ firebase.auth().onAuthStateChanged((user) => {
 			      <img id="pop_photo" src=""/>
             <h3 id="pop_info"></h3>
             <p id="bio-content"></p>
+      <div id="re-select-gender">
+         <ul>
+           <li><a href="#" id="males">Male</a></li>
+           <li><a href="#" id="females">Female</a></li>
+        </ul>
+      </div>
       <div id="add-bio">
           <input id="bio-input" type="text"/>
           <button id="bio-submit" type="submit">Update Bio</button>
       </div>
+
     <div id="logout">
             <Button
             id="logout-button"
