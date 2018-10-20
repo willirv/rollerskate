@@ -202,7 +202,7 @@ var yes_button_element = document.querySelector('#Yes');
 
 //**************************************** Calling both the current auth() users database and the match on the screens and comparing the data => to see wheather its a match *********************// 
 // Call the auth() users database to the collection no => and get all the documents within !!! Have to change to yes
-  db.collection("users").doc(uid).collection("no")
+  db.collection("users").doc(uid).collection("yes")
   .get()
 // Query snapshot the firebase database 
   .then(function(querySnapshot){
@@ -218,11 +218,11 @@ var yes_button_element = document.querySelector('#Yes');
    // console.log(user_yes);
 
 // Set the Ref for the database to the yes users content
-   var Ref = db.collection("users").doc(yes_uid).collection("no");
+   var Ref = db.collection("users").doc(yes_uid).collection("yes");
 
 // After finding the auth() users data => then get the data for the potencial match on the screen
   // Using the declared variable of the present div => get the collection of no selections !!!!! Have to change to yes
-    db.collection("users").doc(yes_uid).collection("no")
+    db.collection("users").doc(yes_uid).collection("yes")
     .get()
     // Add a querySnapshot function
     .then(function(querySnapshot) {
@@ -253,6 +253,19 @@ var yes_button_element = document.querySelector('#Yes');
       if(poten_data === uid){
          // Then console.log "this is a match"
             console.log("This is a match");
+
+  // Declare the variable for the firebase database   
+   var db = firebase.firestore();
+
+// Create a new collection and document within the auth() user database => called yes
+   var docRef = db.collection("users").doc(uid).collection("match").doc(poten_data);
+
+// Merge the new collection within the existing users database => to prevent all the databeing overided
+   var setWithMerge = docRef.set({
+    poten_data
+}, { merge: true });
+
+
             $("#itsamatch").show();
            }
        else{
