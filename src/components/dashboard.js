@@ -151,6 +151,20 @@ componentDidMount() {
 //**************************************** Yes *********************// 
 // When yes is selected -- run function 
     $("#Yes").click(function(){
+
+
+var yes_button_element = document.querySelector('#Yes');
+
+
+  anime({
+   targets: yes_button_element,
+    scale: {
+    value: '2',
+    duration: 300,
+    easing: 'easeInOutSine'
+  },
+  direction: 'alternate'
+});
    
 // Find the current auth() user => to get the uid of the user
    firebase.auth().onAuthStateChanged((user) => { 
@@ -265,7 +279,25 @@ componentDidMount() {
 // Rather than removing the child => animate through anime.js
   // Remove the selected div from the back of the ptc matches div
 
-$("#ptc-matches").children().last().remove();
+
+
+  // Declare a new varibale for the last element for animejs 
+    var new_element = document.querySelector('#ptc-matches div:last-child')
+
+// Remove the top div out of view of the user
+   $("#ptc-matches").children().last().fadeOut(800, function(){
+     $("#ptc-matches").children().last().remove();
+   });
+// Get the current signed in users uid
+   anime({
+   targets: new_element,
+   translateX: -600,
+   easing: 'easeInOutQuart',
+   rotate: 180
+});
+
+
+  //$("#ptc-matches").children().last().remove();
 
    
 });
@@ -275,6 +307,19 @@ $("#ptc-matches").children().last().remove();
 //**************************************** No *********************// 
 // When no is selected - run function
     $("#No").click(function(){
+
+  var button_element = document.querySelector('#No');
+
+
+  anime({
+   targets: button_element,
+    scale: {
+    value: '2',
+    duration: 300,
+    easing: 'easeInOutSine'
+  },
+  direction: 'alternate'
+});
 
 // Console.log no for debug
     console.log("No");
@@ -298,6 +343,10 @@ $("#ptc-matches").children().last().remove();
    easing: 'easeInOutQuart',
    rotate: 180
 });
+
+
+
+
 
 //**************************************** Signed in user said no/ to user *********************// 
     //Under the current users doc create a new collection called no

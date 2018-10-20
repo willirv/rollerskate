@@ -73,6 +73,18 @@
 	color: #fff;
 }
 
+#progress-bar {
+  position: absolute;
+  height: 10px;
+  width: 0px;
+  right: 0;
+  top: 545px;
+  left: 50%;
+  border-radius: 200px;
+  transform: translateY(-50%) translateX(-50%);
+  background-color: #fff;
+}
+
 
 #welcome button:hover{
 	color: #fff;
