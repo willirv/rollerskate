@@ -25,16 +25,38 @@ import profile_icon from '../Images/profile-icon.svg';
 export default class Current extends React.Component{
 
 componentDidMount() {
+
+
 //**************************************** Show and hide profile *********************//
 // when my profile is selected -- show profile
   $("#My-profile").click(function(){
-    $("#profile_pop").show();
+
+  var profileOpen = document.querySelector("#profile_pop");
+  
+  $("#profile_pop").show();
+
+  anime({
+  targets: profileOpen,
+  translateY: 800,
+  duration: 900,
+  easing: 'easeInOutSine'
+});
+
 });
 
 
 // When close box is selected close profile
     $("#close").click(function(){
-    $("#profile_pop").hide();
+
+  var profileClose = document.querySelector("#profile_pop");
+
+  anime({
+  targets: profileClose,
+  translateY: -800,
+  duration: 1100,
+  easing: 'easeInOutSine'
+});
+    //$("#profile_pop").hide();
 });
 
 
@@ -152,8 +174,14 @@ componentDidMount() {
 // When yes is selected -- run function 
     $("#Yes").click(function(){
 
+  
+// Get the id of the last child of the ptc matches div
+   var yes_uid = $("#ptc-matches").children().last().attr('id');
 
-var yes_button_element = document.querySelector('#Yes');
+// console.log the yes varible to the console for debug => should print the uid of the targeted user
+   console.log(yes_uid);
+
+   var yes_button_element = document.querySelector('#Yes');
 
 
   anime({
@@ -201,21 +229,19 @@ var yes_button_element = document.querySelector('#Yes');
 
 
 //**************************************** Calling both the current auth() users database and the match on the screens and comparing the data => to see wheather its a match *********************// 
-// Call the auth() users database to the collection no => and get all the documents within !!! Have to change to yes
+// Get the current auth users data()
   db.collection("users").doc(uid).collection("yes")
   .get()
 // Query snapshot the firebase database 
   .then(function(querySnapshot){
 // For each document within the database 
    querySnapshot.forEach(function(doc){
-// Console.log them with a string for debugging
+// Console.log them with a string for debugging => prints the users the auth() has said yes to
     console.log("currentuser:" + doc.id);
 
-// Declare a variable for the users data
+// Declare a variable for the users data => the users theyve said yes to
     var user_yes = doc.id;
 
-
-   // console.log(user_yes);
 
 // Set the Ref for the database to the yes users content
    var Ref = db.collection("users").doc(yes_uid).collection("yes");
@@ -233,7 +259,7 @@ var yes_button_element = document.querySelector('#Yes');
           var poten_data = doc.id;
 
           // Console.log the data within the no collection
-           // console.log("potencial match:" + doc.id);
+         console.log("potencial match:" + doc.id);
 
 
               // Declare a duplicate variable => as false
@@ -252,17 +278,17 @@ var yes_button_element = document.querySelector('#Yes');
   // If the data of the potencial match = the ui of the auth user
       if(poten_data === uid){
          // Then console.log "this is a match"
-            console.log("This is a match");
+  console.log("This is a match");
 
   // Declare the variable for the firebase database   
    var db = firebase.firestore();
 
 // Create a new collection and document within the auth() user database => called yes
-   var docRef = db.collection("users").doc(uid).collection("match").doc(poten_data);
+   var docRef = db.collection("users").doc(uid).collection("match").doc(yes_uid);
 
 // Merge the new collection within the existing users database => to prevent all the databeing overided
    var setWithMerge = docRef.set({
-    poten_data
+    yes_uid
 }, { merge: true });
 
 
@@ -284,15 +310,11 @@ var yes_button_element = document.querySelector('#Yes');
 })
 
 
-// Get the id of the last child of the ptc matches div
-   var yes_uid = $("#ptc-matches").children().last().attr('id');
-// console.log the yes varible to the console for debug => should print the uid of the targeted user
-   console.log(yes_uid);
 
 // Rather than removing the child => animate through anime.js
   // Remove the selected div from the back of the ptc matches div
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // Declare a new varibale for the last element for animejs 
     var new_element = document.querySelector('#ptc-matches div:last-child')
@@ -300,7 +322,19 @@ var yes_button_element = document.querySelector('#Yes');
 // Remove the top div out of view of the user
    $("#ptc-matches").children().last().fadeOut(800, function(){
      $("#ptc-matches").children().last().remove();
+
+     var Empty = $("#ptc-matches").children().length === 0;
+
+    if(Empty){
+    document.getElementById("ptc-matches").append("You're out of matches, login in later");
+
+    document.getElementById("No").disabled = true;
+
+    document.getElementById("Yes").disabled = true;
+  }
+
    });
+
 // Get the current signed in users uid
    anime({
    targets: new_element,
@@ -319,7 +353,8 @@ var yes_button_element = document.querySelector('#Yes');
 
 //**************************************** No *********************// 
 // When no is selected - run function
-    $("#No").click(function(){
+  $("#No").click(function(){
+
 
   var button_element = document.querySelector('#No');
 
@@ -348,6 +383,17 @@ var yes_button_element = document.querySelector('#Yes');
 // Remove the top div out of view of the user
    $("#ptc-matches").children().last().fadeOut(800, function(){
      $("#ptc-matches").children().last().remove();
+
+     var Empty = $("#ptc-matches").children().length === 0;
+
+     if(Empty){
+     document.getElementById("ptc-matches").append("You're out of matches, come back later");
+
+     document.getElementById("No").disabled = true;
+
+     document.getElementById("Yes").disabled = true;
+  }
+
    });
 // Get the current signed in users uid
    anime({
@@ -555,10 +601,13 @@ firebase.auth().onAuthStateChanged((user) => {
       //newDiv.append(identifier);
 
 
-      // add the newly created element and its content into the DOM 
-      var currentDiv = document.getElementById("dummy"); 
-      document.getElementById("ptc-matches").append(newDiv); 
+      document.getElementById("ptc-matches").append(newDiv)
+      
+    
 
+
+     
+      
 
 
 
