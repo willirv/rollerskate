@@ -21,6 +21,18 @@ import tick from '../Images/tick.svg';
 
 import profile_icon from '../Images/profile-icon.svg';
 
+import messages_icon from '../Images/messages_icon.svg';
+
+import profile_background from '../Images/profile_background.svg';
+
+import pencil from '../Images/pencil.svg';
+
+
+import gender from '../Images/gender.svg';
+
+
+
+
 
 export default class Current extends React.Component{
 
@@ -32,6 +44,9 @@ componentDidMount() {
   $("#My-profile").click(function(){
 
   var profileOpen = document.querySelector("#profile_pop");
+
+  var profile_icon = document.querySelector("My-profile img");
+
   
   $("#profile_pop").show();
 
@@ -45,6 +60,30 @@ componentDidMount() {
 });
 
 
+ $("#My-profile").mouseenter(function(){
+
+ var target = document.querySelector(".profile-icon");
+
+  anime({
+   targets: target,
+    rotate: '1turn',
+    opacity: 0.7,
+});
+
+});
+
+
+ $("#My-profile").mouseleave(function(){
+
+ var target = document.querySelector(".profile-icon");
+
+  anime({
+   targets: target,
+    opacity: 1,
+});
+
+});
+
 // When close box is selected close profile
     $("#close").click(function(){
 
@@ -57,6 +96,39 @@ componentDidMount() {
   easing: 'easeInOutSine'
 });
     //$("#profile_pop").hide();
+});
+
+
+$("#messages").click(function(){
+
+$("#messages_pop").show();
+
+var messages_open = document.querySelector("#messages_pop")
+
+anime({
+  targets: messages_open,
+  translateX:-1400,
+  duration: 1100,
+  easing: 'easeInOutSine'
+});
+
+});
+
+
+  $("#messages_close").click(function(){
+
+    var messages_close = document.querySelector("#messages_pop")
+    
+anime({
+  targets: messages_close,
+  translateX:1400,
+  duration: 1000,
+  easing: 'easeInOutSine',
+   complete: function(anim) { 
+    $("#messages_pop").hide();
+  }
+});
+
 });
 
 
@@ -509,7 +581,9 @@ firebase.auth().onAuthStateChanged((user) => {
   var auth_uid = user.uid;
 // Log it to the console
   console.log(auth_uid);
-// Get the database from the current auth user 
+
+
+// Get the database from the current auth user => to find their preference
   db.collection("users").doc(auth_uid)
 
   .get()
@@ -520,15 +594,20 @@ firebase.auth().onAuthStateChanged((user) => {
   var preference = doc.data().preference;
 
 // Console.log it for debug 
-  console.log(preference + "is what this user is interested in")
+  console.log(preference + "is what this user is interested in");
+
+
+
 
 // Call the users database from firebase and get all of the Users data - will change to allow user to refine data
   db.collection("users").where("gender", "==", preference)
+
   .get()
   .then(function(querySnapshot) {
 
 // For each element of data call the function doc
    querySnapshot.forEach(function(doc) {
+
 
 // Console each of the user elements to console for debug
       console.log(doc.data());
@@ -606,18 +685,16 @@ firebase.auth().onAuthStateChanged((user) => {
     
 
 
-     
-      
-
 
 
          });
+
+        });
+   });
+
     });
 });
 
-    });
-
-  });
 }
 
 
@@ -629,9 +706,9 @@ firebase.auth().onAuthStateChanged((user) => {
     <div id="match_container">
     <div id="Head">
     <ul> 
-      <li><a id="My-profile"><img src={profile_icon}/></a></li>
-      <li><a id="Home">Home</a></li>
-      <li><a id="Messages">Messages</a></li>
+      <li><a id="My-profile"><img className="profile-icon" src={profile_icon}/></a></li>
+      <li><a id="Home"></a></li>
+      <li><a id="messages"><img src={messages_icon}/></a></li>
     </ul>
     </div>
 
@@ -639,11 +716,16 @@ firebase.auth().onAuthStateChanged((user) => {
        </div>
     </div>
 
+
     <div id="choices">
        <ul>
         <li><button id="Yes"><img src={tick}/></button></li>
         <li><button id="No"><img src={cross}/></button></li>
         </ul>
+    </div>
+
+        <div id="messages_pop">
+         <p id="messages_close">X</p>
     </div>
     <div id="itsamatch">
         <p id="match-close">X</p>
@@ -652,16 +734,30 @@ firebase.auth().onAuthStateChanged((user) => {
           <button id="match-message">Message this user</button>
        </div>
     </div>
+
+
 			<div id="profile_pop">
       <p id="close">X</p>
+        <div id="profile_pop_image">
 			      <img id="pop_photo" src=""/>
+        </div>
             <h3 id="pop_info"></h3>
             <p id="bio-content"></p>
+
+<div id="curve">
       <div id="re-select-gender">
          <ul>
            <li><a href="#" id="males">Male</a></li>
            <li><a href="#" id="females">Female</a></li>
         </ul>
+      </div>
+      <div id="bio_button">
+      <img src={pencil}/>
+        <p>Update your Bio</p>
+      </div>
+       <div id="gender_button">
+       <img src={gender}/>
+          <p>Gender Preferences</p>
       </div>
       <div id="add-bio">
           <input id="bio-input" type="text"/>
@@ -677,10 +773,11 @@ firebase.auth().onAuthStateChanged((user) => {
           >
             Logout
           </Button>
-       </div>
+  </div>
+</div>
 
-			</div>
-    </div>
+</div>
+</div>
 			);
 	}
 }
