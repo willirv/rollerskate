@@ -60,6 +60,8 @@ componentDidMount() {
 });
 
 
+
+
  $("#My-profile").mouseenter(function(){
 
  var target = document.querySelector(".profile-icon");
@@ -85,7 +87,7 @@ componentDidMount() {
 });
 
 // When close box is selected close profile
-    $("#close").click(function(){
+  $("#close").click(function(){
 
   var profileClose = document.querySelector("#profile_pop");
 
@@ -97,6 +99,124 @@ componentDidMount() {
 });
     //$("#profile_pop").hide();
 });
+
+
+$("#close").mouseenter(function(){
+
+  var close_icon = document.querySelector("#close")
+
+anime({
+  targets: close_icon,
+  opacity: 0.7
+});
+
+});
+
+
+
+
+$("#close").mouseleave(function(){
+
+  var close_icon = document.querySelector("#close")
+
+anime({
+  targets: close_icon,
+  opacity: 1
+});
+
+});
+
+
+
+
+$("#bio_button").mouseenter(function(){
+
+
+var button = document.querySelector("#bio_button")
+
+anime({
+  targets: button,
+  opacity: 0.6
+});
+
+});
+
+
+
+$("#bio_button").mouseleave(function(){
+
+
+var button = document.querySelector("#bio_button")
+
+anime({
+  targets: button,
+  opacity: 1
+});
+
+});
+
+
+$("#bio_button").click(function(){
+   
+   $("#add-bio").show();
+
+   var bio_target = document.querySelector("#add-bio");
+
+
+anime({
+  targets: bio_target,
+  opacity: 1,
+  duration: 1000,
+});
+
+
+
+});
+
+
+
+
+$("#add-bio-close").click(function(){
+   
+
+var bio_target = document.querySelector("#add-bio");
+
+
+anime({
+  targets: bio_target,
+  opacity: 0,
+  duration: 1000,
+  complete: function(anim) { 
+    $("#add-bio").hide();
+  }
+});
+
+
+
+});
+
+
+
+$("#gender_button").click(function(){
+   
+$("#re-select-gender").show();
+
+
+var gender_target = document.querySelector("#re-select-gender");
+
+
+anime({
+  targets: gender_target,
+  opacity: 1,
+  duration: 1000,
+});
+
+
+
+
+});
+
+
 
 
 $("#messages").click(function(){
@@ -159,6 +279,7 @@ anime({
 
     // Reload to update the bio content;
     $("#bio-content").load("#bio-content");
+
      });
    });
 
@@ -745,21 +866,26 @@ firebase.auth().onAuthStateChanged((user) => {
             <p id="bio-content"></p>
 
 <div id="curve">
+
       <div id="re-select-gender">
          <ul>
            <li><a href="#" id="males">Male</a></li>
            <li><a href="#" id="females">Female</a></li>
         </ul>
       </div>
+
       <div id="bio_button">
       <img src={pencil}/>
         <p>Update your Bio</p>
       </div>
+
        <div id="gender_button">
        <img src={gender}/>
           <p>Gender Preferences</p>
       </div>
+
       <div id="add-bio">
+      <p id="add-bio-close">X</p>
           <input id="bio-input" type="text"/>
           <button id="bio-submit" type="submit">Update Bio</button>
       </div>

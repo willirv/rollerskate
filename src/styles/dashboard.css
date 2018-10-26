@@ -111,9 +111,31 @@
 }
 
 #add-bio{
-    padding-top: 20px;
+    padding-top: 150px;
+    background-color: #fff;
+    border-radius: 20px;
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    top: 80px;
     text-align: center;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    opacity: 0;
     display: none;
+}
+
+#bio-input{
+width: 280px;
+height: 60px;
+}
+
+#bio-submit{
+    position: absolute;
+    top: 250px;
+    left: 120px;
 }
 
 #choices{
@@ -268,9 +290,49 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 #re-select-gender{
+    width: 300px;
+    height: 200px;
+    border-radius: 20px;
+    background-color: #fff;
+    position: absolute;
     text-align: center;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    top: 200px;
+    opacity: 0;
     display: none;
 }
+
+#re-select-gender ul{
+    padding-top: 40px;
+}
+
+
+#re-select-gender li{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 200px;
+    height: 20px;
+    background-color: #9806F5;
+    border-radius: 20px;
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+#re-select-gender a{
+    padding-top: 10px;
+    text-decoration: none;
+    font-family: proxima-soft, sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 14px;
+    color: #fff;
+}
+
 
 #itsamatch{
     position: absolute;
