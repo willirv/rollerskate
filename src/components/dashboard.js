@@ -13,6 +13,8 @@ import $ from "jquery";
 
 import anime from 'animejs';
 
+import Matches from "../components/matches.js"
+
 import logo from '../Images/rollerskatelogo.svg';
 
 import cross from '../Images/cross.svg';
@@ -451,12 +453,13 @@ anime({
 
           var poten_data = doc.id;
 
+
           // Console.log the data within the no collection
          console.log("potencial match:" + doc.id);
 
 
               // Declare a duplicate variable => as false
-     var match = false;
+         var match = false;
 
 
      //**************************************** Match check -- Check the whether both users have said yes *********************//
@@ -847,6 +850,8 @@ firebase.auth().onAuthStateChanged((user) => {
 
         <div id="messages_pop">
          <p id="messages_close">X</p>
+           <h3>Matches</h3>
+         <Matches />
     </div>
     <div id="itsamatch">
         <p id="match-close">X</p>
