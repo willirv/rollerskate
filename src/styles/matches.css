@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Orienta');
+
+@import url('https://fonts.googleapis.com/css?family=Lily+Script+One');
+
+
+#matches_container > div{
+   width: 80%;
+   height: 150px;
+   background-color: #fff;
+   margin-bottom: 20px;
+   margin-top: 20px;
+   margin-left: 12%;
+   margin-right: 15%;
+   padding-bottom: 20px;
+   border-radius: 20px;
+}
+
+#matches_container div p{
+	position: absolute;
+	left: 0;
+	margin-left: 49%;
+	padding-top: 75px;
+}
+
+
+#matches_container div img{
+	position: absolute;
+	left: 0;
+	margin-top: 35px;
+	margin-left: 20%;
+	height: 100px;
+	width: 100px;
+	border-radius: 100%;
+}
+
+
+
+
