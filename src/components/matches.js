@@ -111,16 +111,22 @@ componentDidMount() {
      // When we've completed that task, we then need to create a header on the page with the match users name
        //Create the spearate components of the chat, messages, type your message
          // And the sumbit field
+   var message_container = document.createElement("div");
+
+   message_container.setAttribute('id', "message_container");
 
 // Create a new div element for each of the users 
    var message_tab = document.createElement("div");
 
 // Set the ID of the message tab div as message tab
-   message_tab.setAttribute('id', "messagetab");
+   message_tab.setAttribute('id', user_name);
 
 // Set the value of the created div as the users unique uid 
    message_tab.setAttribute('value', user_uid);
   
+   message_container.append(message_tab);
+
+
 
 
 // Create a new img as display img and set its attributes for debug
@@ -136,18 +142,24 @@ componentDidMount() {
     newDiv.append(match_name);
     newDiv.append(display_img);
     newDiv.append(timer);
-    newDiv.append(message_tab);
+    newDiv.append(message_container);
 
     document.getElementById("matches_container").append(newDiv)
 
-
-
+// When a child of the matches container is clicked run a function
 $('#matches_container > div').click(function(){
 
+// For debug => find the users name based on the value of the div
+ var name = $(this).attr('value');
 
- var test = $(this).attr('value');
+ var location = $("#message_container > div", this).attr("value");
+ //var location = $(this).children("#message_container").attr('id');
 
- alert(test);
+// Alert the name for debug
+ alert(name);
+ 
+ alert(location);
+
 });
     
 
@@ -165,8 +177,8 @@ $('#matches_container > div').click(function(){
 
 render(){
 return(
-<div id="matches_container">
-</div>
+    <div id="matches_container">
+    </div>
 			);
 	}
 }
