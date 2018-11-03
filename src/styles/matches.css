@@ -33,6 +33,22 @@
 	border-radius: 100%;
 }
 
+#timer{
+	position: absolute;
+	left: 0;
+	margin-left:20%;
+	padding-top: 70px;
+}
+
+#timer input{
+	width: 30px;
+	height:20px;
+	border: none;
+	background-color: #fff;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
 
 
 

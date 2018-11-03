@@ -92,11 +92,13 @@ componentDidMount() {
 // Create a new div called time => when the user types in the message screen update the timer
    var timer = document.createElement("div");
 
+   timer.setAttribute('id', "timer");
+
 // Create an input 
    var timer_output = document.createElement("input");
 
 // Set the value of the input to 5000 just for debug
-   timer_output.setAttribute('value', 5000);
+   timer_output.setAttribute('value', "5min");
 
 // Append the time_output element to the timer div
    timer.append(timer_output)
