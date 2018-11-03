@@ -6,7 +6,7 @@
 #matches_container > div{
    width: 80%;
    height: 150px;
-   background-color: #fff;
+   background-color: transparent;
    margin-bottom: 20px;
    margin-top: 20px;
    margin-left: 12%;
@@ -15,66 +15,48 @@
    border-radius: 20px;
 }
 
-#matches_container div p{
-	position: absolute;
-	left: 0;
-	margin-left: 49%;
-	padding-top: 75px;
+#matches_container  p{
+
 }
 
 
-#matches_container div img{
-	position: absolute;
-	left: 0;
-	margin-top: 35px;
-	margin-left: 20%;
-	height: 100px;
-	width: 100px;
-	border-radius: 100%;
+#matches_container img{
+
 }
 
 #timer{
-	position: absolute;
-	left: 0;
-	margin-left:20%;
-	padding-top: 70px;
+
 }
 
 #timer input{
 	width: 30px;
 	height:20px;
 	border: none;
-	background-color: #fff;
+	background-color: transparent;
 	border-bottom-right-radius: 10px;
 	border-top-right-radius: 10px;
 }
 
-#messagetab{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100vh;
-	background-color: #fff;
-	z-index: 20;
-	display: none;
-}
+
 
 #message_container{
 	position: absolute;
 	top: 0;
 	left: 0;
-	height: 100vh;
-	width: 100%;
 	background-color: #fff;
-	z-index: 60;
-	display: none;
+    width: 100%;
+    height: 100vh;
+    display: none;
 }
 
-#message_container > div{
-	width: 100px;
-	height: 100px;
-	background-color: red;
+
+#close p{
+	color: black;
+}
+
+
+#message_container h3{
+	color: red;
 }
 
 

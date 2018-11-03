@@ -1,4 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Orienta');
+
+@import url('https://fonts.googleapis.com/css?family=Lily+Script+One');
+
 #gender{
+	width: 100%;
+	height: 100vh;
+	background-color: #9C08D9;
 	text-align: center;
-	padding-top: 150px;
+}
+
+
+#gender h3{
+  color: #fff;
+  font-size: 40px;
+  font-family: 'Lily Script One', cursive;
+  padding-bottom: 20px;
 }

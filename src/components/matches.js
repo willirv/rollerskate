@@ -10,6 +10,10 @@ import { Link, Router, Route, browserHistory } from "react-router";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 //Import Jquery 
 import $ from "jquery";
+// Import Anime
+import anime from 'animejs';
+
+import close from "../components/messagehead.js";
 //Render component
 export default class matches extends React.Component{
 
@@ -20,7 +24,6 @@ export default class matches extends React.Component{
         // Get the unique I div and hide it potencially
 
 componentDidMount() {
-
     
 // Call the current auth() state of the user
   firebase.auth().onAuthStateChanged((user) => {
@@ -111,20 +114,62 @@ componentDidMount() {
      // When we've completed that task, we then need to create a header on the page with the match users name
        //Create the spearate components of the chat, messages, type your message
          // And the sumbit field
+/************************************************ Main div ************************************************/
+// Create a varibale for the message_container
    var message_container = document.createElement("div");
-
+// Set the id of the new container
    message_container.setAttribute('id', "message_container");
 
-// Create a new div element for each of the users 
-   var message_tab = document.createElement("div");
+/************************************************ Close element ************************************************/
 
-// Set the ID of the message tab div as message tab
-   message_tab.setAttribute('id', user_name);
+  var close = document.createElement('div')
 
-// Set the value of the created div as the users unique uid 
-   message_tab.setAttribute('value', user_uid);
-  
-   message_container.append(message_tab);
+  close.setAttribute('id', 'close');
+
+
+// Create a new P element - to close the message container
+   var message_container_close = document.createElement("p");
+
+// Create a new text node to append to the new <P> element
+   var message_container_close_content = document.createTextNode("close");
+
+/************************************************ Heading element ************************************************/
+// Create a new h3 element for the heading
+   var message_container_heading = document.createElement("h3");
+
+// Create a new text node to append to the heading as the user name 
+   var message_container_heading_content = document.createTextNode(user_name);
+
+/************************************************ Image ************************************************/
+
+// Create a new image element
+  var message_container_image = document.createElement("img");
+
+// Make the source of the image as the profile url from database 
+  message_container_image.setAttribute('src', profile_img);
+
+
+/************************************************ Appending ************************************************/
+
+// Append the content of the heading text node to the heading element
+  message_container_heading.append(message_container_heading_content);
+
+// Apend the new text node content to the new p element
+  message_container_close.append(message_container_close_content);
+
+// Append the image of the match to the main message container 
+ // message_container.append(message_container_image);
+
+// Apend the main heading component to the message container 
+  message_container.append(message_container_heading);
+
+  close.append(message_container_close);
+
+// Apend the message_container_close <P> to the message container
+   message_container.append(close);
+
+
+
 
 
 
@@ -150,26 +195,31 @@ componentDidMount() {
 $('#matches_container > div').click(function(){
 
 // For debug => find the users name based on the value of the div
- var name = $(this).attr('value');
+ //var name = $(this).attr('value');
 
- var location = $("#message_container > div", this).attr("value");
- //var location = $(this).children("#message_container").attr('id');
+//var location = $(this).children("#message_container").text();
+// Show the message container for this component
 
+$(this).children("#message_container").show().fadeIn();
+
+//$("#message_container > div", this).show();
 // Alert the name for debug
- alert(name);
+ //alert(name);
  
- alert(location);
+ //alert(location);
+});
+
+
+$('#close').click(function(){
+  window.location = "dashboard";
+});
+});
 
 });
-    
 
-   });
-
-});
 });
 
 }
-
 });
 }
 
