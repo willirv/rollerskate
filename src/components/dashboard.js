@@ -856,8 +856,8 @@ firebase.auth().onAuthStateChanged((user) => {
     <div id="itsamatch">
         <p id="match-close">X</p>
          <div id="itsamatch-content">
-      <h3 id="itsamatch-head">Its a match!</h3>
-          <button id="match-message">Message this user</button>
+      <h3>Its a match!</h3>
+          <p>Check out messages to talk</p>
        </div>
     </div>
 

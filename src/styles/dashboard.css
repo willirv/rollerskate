@@ -368,11 +368,37 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     display: none;
 }
 
+#match-close{
+    position: absolute;
+    top: 10px;
+    left: 25px;
+    font-family: proxima-soft, sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 30px;
+    color: #9C08D9;
+}
+
 #itsamatch-content{
     text-align: center;
     padding-top: 200px;
 }
 
+#itsamatch-content h3{
+    font-size: 40px;
+    color: #9C08D9;
+    font-family: 'Lily Script One', cursive;
+    padding-bottom: 20px;
+}
+
+
+#itsamatch-content p{
+    font-family: proxima-soft, sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 14px;
+    color: #9C08D9;
+}
 
 #logout{
     position: absolute;

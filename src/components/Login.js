@@ -152,7 +152,6 @@ firebase.auth().signInWithEmailAndPassword( email, password)
                <p> Don't have and account? </p>
                <Link to={"register"}>Register</Link>
                </li>
-               <li><Link to={"forgotpassword"}>Forgot your password?</Link></li>
               </ul>
             </div>
            </div>
