@@ -861,6 +861,10 @@ firebase.auth().onAuthStateChanged((user) => {
        </div>
     </div>
 
+          <div id="message_container">
+             <p id="message_container_close">X</p>
+      </div>
+
 
 			<div id="profile_pop">
       <p id="close">X</p>

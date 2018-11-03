@@ -106,69 +106,6 @@ componentDidMount() {
 // Append the time_output element to the timer div
    timer.append(timer_output)
 
-/************************************************ Messages_tab ************************************************/
-
- //For each of the matches that we have 
-  //Create a new div for each called messages => or with each users unique uid
-    //We need to hide the div for the messages tab and transition it when the user selects one of their matches
-     // When we've completed that task, we then need to create a header on the page with the match users name
-       //Create the spearate components of the chat, messages, type your message
-         // And the sumbit field
-/************************************************ Main div ************************************************/
-// Create a varibale for the message_container
-   var message_container = document.createElement("div");
-// Set the id of the new container
-   message_container.setAttribute('id', "message_container");
-
-/************************************************ Close element ************************************************/
-
-  var close = document.createElement('div')
-
-  close.setAttribute('id', 'close');
-
-
-// Create a new P element - to close the message container
-   var message_container_close = document.createElement("p");
-
-// Create a new text node to append to the new <P> element
-   var message_container_close_content = document.createTextNode("close");
-
-/************************************************ Heading element ************************************************/
-// Create a new h3 element for the heading
-   var message_container_heading = document.createElement("h3");
-
-// Create a new text node to append to the heading as the user name 
-   var message_container_heading_content = document.createTextNode(user_name);
-
-/************************************************ Image ************************************************/
-
-// Create a new image element
-  var message_container_image = document.createElement("img");
-
-// Make the source of the image as the profile url from database 
-  message_container_image.setAttribute('src', profile_img);
-
-
-/************************************************ Appending ************************************************/
-
-// Append the content of the heading text node to the heading element
-  message_container_heading.append(message_container_heading_content);
-
-// Apend the new text node content to the new p element
-  message_container_close.append(message_container_close_content);
-
-// Append the image of the match to the main message container 
- // message_container.append(message_container_image);
-
-// Apend the main heading component to the message container 
-  message_container.append(message_container_heading);
-
-  close.append(message_container_close);
-
-// Apend the message_container_close <P> to the message container
-   message_container.append(close);
-
-
 
 
 
@@ -187,32 +124,41 @@ componentDidMount() {
     newDiv.append(match_name);
     newDiv.append(display_img);
     newDiv.append(timer);
-    newDiv.append(message_container);
 
     document.getElementById("matches_container").append(newDiv)
 
 // When a child of the matches container is clicked run a function
 $('#matches_container > div').click(function(){
 
-// For debug => find the users name based on the value of the div
- //var name = $(this).attr('value');
+$('#message_container').show();
 
-//var location = $(this).children("#message_container").text();
-// Show the message container for this component
 
-$(this).children("#message_container").show().fadeIn();
+var target = document.querySelector("#message_container");
 
-//$("#message_container > div", this).show();
-// Alert the name for debug
- //alert(name);
- 
- //alert(location);
+  anime({
+   targets: target,
+   opacity: 1,
+   duration: 2000,
 });
 
-
-$('#close').click(function(){
-  window.location = "dashboard";
 });
+
+// When a child of the matches container is clicked run a function
+$('#message_container_close').click(function(){
+
+
+  var target = document.querySelector("#message_container");
+
+  anime({
+   targets: target,
+   opacity: 0,
+   duration: 2000,
+   complete: function(anim) { 
+    $('#message_container').hide();
+  }
+});
+});
+
 });
 
 });
