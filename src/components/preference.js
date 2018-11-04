@@ -98,7 +98,7 @@ componentDidMount() {
 
 render(){
 return(
-<div id="gender">
+<div id="gender_select_form">
    <h3>Who would you like to talk to?</h3>
    <div id="gender_select">
        <ul>

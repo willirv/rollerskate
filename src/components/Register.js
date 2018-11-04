@@ -233,11 +233,6 @@ db.settings({
             Register
           </Button>
         </form>
-           <div id="link-bar">
-            <div className="forgotpassword-button">
-               <Link to={"forgotpassword"}>Forgot your password?</Link>
-            </div>
-            </div>
            </div>
         </div>
       );
