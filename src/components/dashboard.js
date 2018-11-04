@@ -384,8 +384,10 @@ $("#messages_close").mouseleave(function(){
 //**************************************** Log out button functionality *********************// 
 // When the logout button in the profile tab is clicked - run function
   $("#logout-button").click(function(){
+
+
 // Call firebase and set the auth() state of the user to none --  
-      firebase.auth().signOut().then(function() {
+  firebase.auth().signOut().then(function() {
 // If the signout of the user is successful 
 // Console.log for debug
   console.log("sign-out process was successful");
@@ -396,6 +398,42 @@ $("#messages_close").mouseleave(function(){
 });
 
 });
+
+
+
+$("#logout-button").mouseenter(function(){
+
+var target = document.querySelector("#logout-button")
+
+anime({
+  targets: target,
+  opacity: 0.6,
+  duration: 300,
+  easing: 'easeInOutSine'
+});
+
+
+});
+
+
+
+$("#logout-button").mouseleave(function(){
+
+var target = document.querySelector("#logout-button")
+
+anime({
+  targets: target,
+  opacity: 1,
+  duration: 300,
+  easing: 'easeInOutSine'
+});
+
+
+});
+
+
+
+
 
 
 

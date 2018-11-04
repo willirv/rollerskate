@@ -368,6 +368,18 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     color: #fff;
 }
 
+#logout-button{
+    width:100px;
+    background-color: transparent;
+    height: 2em;
+    border-radius: 20px;
+    text-align: none;
+    border: 2.8px solid #fff ;
+    font-family: 'Orienta', sans-serif;
+    font-size: 13px;
+    text-decoration: none;
+    color: #fff;
+}
 
 #itsamatch{
     position: absolute;
