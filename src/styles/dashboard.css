@@ -127,6 +127,23 @@
     display: none;
 }
 
+#add-bio-close{
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    font-family: proxima-soft, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 30px;
+    color: #9C08D9;
+    transition: all 0.5s ease;
+}
+
+#add-bio-close:hover{
+    color: #F23AB2;
+
+}
+
 #bio-input{
 width: 280px;
 height: 60px;
@@ -135,8 +152,25 @@ height: 60px;
 #bio-submit{
     position: absolute;
     top: 250px;
-    left: 120px;
+    left: 100px; 
+    width:100px;
+    background-color: transparent;
+    height: 2em;
+    border-radius: 20px;
+    text-align: none;
+    border: 2.8px solid #9C08D9;
+    font-family: 'Orienta', sans-serif;
+    font-size: 13px;
+    text-decoration: none;
+    color: #9C08D9;
+    transition: all 0.5s ease;
 }
+
+#bio-submit:hover{
+    border: 2.8px solid #F23AB2;
+}
+
+
 
 #choices{
     text-align: center;
