@@ -401,37 +401,6 @@ $("#messages_close").mouseleave(function(){
 
 
 
-$("#logout-button").mouseenter(function(){
-
-var target = document.querySelector("#logout-button")
-
-anime({
-  targets: target,
-  opacity: 0.6,
-  duration: 300,
-  easing: 'easeInOutSine'
-});
-
-
-});
-
-
-
-$("#logout-button").mouseleave(function(){
-
-var target = document.querySelector("#logout-button")
-
-anime({
-  targets: target,
-  opacity: 1,
-  duration: 300,
-  easing: 'easeInOutSine'
-});
-
-
-});
-
-
 
 
 

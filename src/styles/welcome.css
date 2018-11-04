@@ -71,6 +71,11 @@
 	font-size: 13px;
 	text-decoration: none;
 	color: #fff;
+	transition: all 0.5s ease;
+}
+
+#enter-button button:hover{
+   border: 2.8px solid #F23AB2;
 }
 
 #progress-bar {

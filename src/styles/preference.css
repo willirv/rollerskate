@@ -29,12 +29,18 @@
 	padding-bottom: 30px;
 }
 
+
 #gender_select_form a{
 	color: #fff;
     text-decoration: none;
+    transition: all 0.5s ease;
 }
 
 #gender_select_form a:visited{
 	color: #fff;
 	text-decoration: none;
+}
+
+#gender_select_form a:hover{
+	color: #F23AB2;
 }

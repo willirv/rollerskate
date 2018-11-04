@@ -3,6 +3,9 @@
 
 @import url('https://fonts.googleapis.com/css?family=Lily+Script+One');
 
+
+@import url("https://use.typekit.net/ebo4yuh.css");
+
 #login {
 	text-align: center;
 	width: 100%;
@@ -54,6 +57,11 @@
 	font-size: 13px;
 	text-decoration: none;
 	color: #fff;
+	transition: all 0.5s ease;
+}
+
+#login button:hover{
+	border: 2.8px solid #F23AB2;
 }
 
 #link-bar ul{
@@ -63,6 +71,31 @@
 #link-bar li{
 	text-align: center;
 	padding-bottom:20px;
+}
+
+#link-bar p{
+	color: #fff;
+	text-decoration: none;
+	font-family: proxima-soft, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 14px;
+}
+
+#link-bar a{
+	color: #F5F50F;
+	text-decoration: none;
+	font-family: proxima-soft, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 12px;
+    transition: all 0.5s ease;
+
+}
+
+
+#link-bar a:hover{
+	color: #F23AB2;
 }
 
 #email{
