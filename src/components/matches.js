@@ -13,7 +13,6 @@ import $ from "jquery";
 // Import Anime
 import anime from 'animejs';
 
-import close from "../components/messagehead.js";
 //Render component
 export default class matches extends React.Component{
 

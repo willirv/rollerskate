@@ -8,28 +8,27 @@ import styles from '../styles/dashboard.css';
 import { Link, Router, Route, browserHistory } from "react-router"; 
 //Import form elements from react-bootstrap
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-
+//Import Jquery
 import $ from "jquery";
-
+//Import Anime 
 import anime from 'animejs';
-
+//Import matches component
 import Matches from "../components/matches.js"
-
+//Import logo svg
 import logo from '../Images/rollerskatelogo.svg';
-
+//Import cross svg
 import cross from '../Images/cross.svg';
-
+//Import tick svg
 import tick from '../Images/tick.svg';
-
+//Import profile icon svg
 import profile_icon from '../Images/profile-icon.svg';
-
+//Import messages icon svg
 import messages_icon from '../Images/messages_icon.svg';
-
+//Import profile background svg
 import profile_background from '../Images/profile_background.svg';
-
+//Import pencil icon
 import pencil from '../Images/pencil.svg';
-
-
+//Import gender icon
 import gender from '../Images/gender.svg';
 
 
@@ -237,9 +236,43 @@ anime({
 });
 
 
+
+$("#messages").mouseenter(function(){
+
+
+var target = document.querySelector("#messages")
+
+anime({
+  targets: target,
+  opacity: 0.6,
+  duration: 300,
+  easing: 'easeInOutSine'
+});
+
+});
+
+
+$("#messages").mouseleave(function(){
+
+
+var target = document.querySelector("#messages")
+
+anime({
+  targets: target,
+  opacity: 1,
+  duration: 300,
+  easing: 'easeInOutSine'
+});
+
+});
+
+
+
+
+
   $("#messages_close").click(function(){
 
-    var messages_close = document.querySelector("#messages_pop")
+var messages_close = document.querySelector("#messages_pop")
     
 anime({
   targets: messages_close,
@@ -252,6 +285,43 @@ anime({
 });
 
 });
+
+
+$("#messages_close").mouseenter(function(){
+
+  var target = document.querySelector("#messages_close");
+
+
+  anime({
+  targets: target,
+  duration: 500,
+  opacity: 0.6,
+  easing: 'easeInOutSine',
+  
+});
+
+
+});
+
+
+$("#messages_close").mouseleave(function(){
+
+  var target = document.querySelector("#messages_close");
+
+
+  anime({
+  targets: target,
+  duration: 500,
+  opacity: 1,
+  easing: 'easeInOutSine',
+  
+});
+
+
+});
+
+
+
 
 
     // when my profile is selected -- show profile
